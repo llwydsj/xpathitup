@@ -24,6 +24,6 @@ namespace XPathItUp
 {
     public interface IBase
     {
-        string XPathExpression { get; }
+        string ToXPathExpression();
     }
 }

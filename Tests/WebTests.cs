@@ -71,7 +71,7 @@ namespace Tests
         public void WebTest_Will_Do_Case_Sensitive_Content_Search()
         {
             LoadPage("http://www.unit-testing.net/Articles");
-            string xpath = XPathFinder.Find.HtmlTag("div").Containing("written by Torgeir Helgevold").XPathExpression;
+            string xpath = XPathFinder.Find.HtmlTag("div").Containing("written by Torgeir Helgevold").ToXPathExpression();
             Assert.IsFalse(selenium.IsElementPresent("xpath=" + xpath));
         }
 
@@ -80,15 +80,15 @@ namespace Tests
         public void WebTest_Will_Do_Case_Sensitive_Attribute_Value_Search()
         {
             LoadPage("http://www.unit-testing.net/Articles");
-            Assert.IsFalse(selenium.IsElementPresent("xpath=" + XPathFinder.Find.HtmlTag("div").With.Attribute("class", "MenuItem menuItemSelected").XPathExpression));
-            Assert.IsFalse(selenium.IsElementPresent("xpath=" + XPathFinder.Find.HtmlTag("div").With.Attribute("class", "menuItem MenuItemSelected").XPathExpression));
+            Assert.IsFalse(selenium.IsElementPresent("xpath=" + XPathFinder.Find.HtmlTag("div").With.Attribute("class", "MenuItem menuItemSelected").ToXPathExpression()));
+            Assert.IsFalse(selenium.IsElementPresent("xpath=" + XPathFinder.Find.HtmlTag("div").With.Attribute("class", "menuItem MenuItemSelected").ToXPathExpression()));
         }
 
         [TestMethod]
         public void WebTest_Will_Not_Do_Case_Sensitive_Attribute_Name_Search()
         {
             LoadPage("http://www.unit-testing.net/Articles");
-            Assert.IsTrue(selenium.IsElementPresent("xpath=" + XPathFinder.Find.HtmlTag("div").With.Attribute("CLASS", "menuItem menuItemSelected").XPathExpression));
+            Assert.IsTrue(selenium.IsElementPresent("xpath=" + XPathFinder.Find.HtmlTag("div").With.Attribute("CLASS", "menuItem menuItemSelected").ToXPathExpression()));
         }
 
         [TestMethod]
@@ -96,7 +96,7 @@ namespace Tests
         {
             selenium.Open("http://www.unit-testing.net/Articles");
             selenium.WaitForPageToLoad("30000");
-            string xpath = XPathFinder.Find.HtmlTag("div").Containing("Written by Torgeir Helgevold").XPathExpression;
+            string xpath = XPathFinder.Find.HtmlTag("div").Containing("Written by Torgeir Helgevold").ToXPathExpression();
             Assert.IsTrue(selenium.IsElementPresent("xpath=" + xpath));
         }
 
@@ -106,7 +106,7 @@ namespace Tests
             selenium.Open("http://www.unit-testing.net/Articles");
             selenium.WaitForPageToLoad("30000");
 
-            string xpath = XPathFinder.Find.HtmlTag("p").Containing("Written by Torgeir Helgevold").XPathExpression;
+            string xpath = XPathFinder.Find.HtmlTag("p").Containing("Written by Torgeir Helgevold").ToXPathExpression();
             Assert.IsFalse(selenium.IsElementPresent("xpath=" + xpath));
         }
 
@@ -114,7 +114,7 @@ namespace Tests
         public void WebTest_Will_Find_Div_Based_On_Specified_Class_Attribute_Test()
         {
             LoadPage("http://www.unit-testing.net/Articles");
-            Assert.IsTrue(selenium.IsElementPresent("xpath=" + XPathFinder.Find.HtmlTag("div").With.Attribute("class", "menuItem menuItemSelected").XPathExpression));
+            Assert.IsTrue(selenium.IsElementPresent("xpath=" + XPathFinder.Find.HtmlTag("div").With.Attribute("class", "menuItem menuItemSelected").ToXPathExpression()));
         }
 
         [TestMethod]
@@ -122,7 +122,7 @@ namespace Tests
         {
             LoadPage("http://www.unit-testing.net/Articles");
 
-            string xpath = XPathFinder.Find.HtmlTag("h2").With.Parent("div").Parent("div").XPathExpression;
+            string xpath = XPathFinder.Find.HtmlTag("h2").With.Parent("div").Parent("div").ToXPathExpression();
             Assert.IsTrue(selenium.IsElementPresent("xpath=" + xpath));
         }
 
@@ -137,7 +137,7 @@ namespace Tests
         public void WebTest_Will_Find_Div_By_Attribute()
         {
             LoadPage("http://www.unit-testing.net/Articles");
-            string xpath = XPathFinder.Find.HtmlTag("div").With.Attribute("class", "articleDetailsInner").XPathExpression;
+            string xpath = XPathFinder.Find.HtmlTag("div").With.Attribute("class", "articleDetailsInner").ToXPathExpression();
             Assert.IsTrue(selenium.IsElementPresent("xpath=" + xpath));
         }
 
@@ -148,7 +148,7 @@ namespace Tests
         {
             LoadPage("http://www.unit-testing.net/Articles");
 
-            string xpath = XPathFinder.Find.HtmlTag("h2").With.Parent("div").Parent("span").XPathExpression;
+            string xpath = XPathFinder.Find.HtmlTag("h2").With.Parent("div").Parent("span").ToXPathExpression();
             Assert.IsFalse(selenium.IsElementPresent("xpath=" + xpath));
         }
 
@@ -157,7 +157,7 @@ namespace Tests
         {
             LoadPage("http://www.unit-testing.net/Articles");
 
-            string xpath = XPathFinder.Find.HtmlTag("li").XPathExpression;
+            string xpath = XPathFinder.Find.HtmlTag("li").ToXPathExpression();
             Assert.IsFalse(selenium.IsElementPresent("xpath=" + xpath));
         }
 

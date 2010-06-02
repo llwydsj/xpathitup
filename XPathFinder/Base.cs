@@ -28,18 +28,15 @@ namespace XPathItUp
 
         List<string> expressionParts = new List<string>();
 
-        public string XPathExpression
+        public string ToXPathExpression()
         {
-            get
+            string expr = string.Empty;
+            foreach (string str in ExpressionParts)
             {
-                string expr = string.Empty;
-                foreach (string str in ExpressionParts)
-                {
-                    expr += str;
-                }
-
-                return "//" + expr;
+                expr += str;
             }
+
+            return "//" + expr;
         }
 
         protected List<string> ExpressionParts

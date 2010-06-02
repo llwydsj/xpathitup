@@ -24,7 +24,7 @@ namespace XPathItUp
 {
     public class Finder
     {
-        public IHtmlElement HtmlTag(string tag)
+        public IHtmlElement Tag(string tag)
         {
             if (string.IsNullOrEmpty(tag))
             {

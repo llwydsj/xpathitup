@@ -41,5 +41,10 @@ namespace XPathItUp
         {
             return AttributeElement.Create(this.ExpressionParts, name, value);
         }
+
+        public IExtendedAttribute Attribute(string name)
+        {
+            return ExtendedAttributeElement.Create(this.ExpressionParts, name);
+        }
     }
 }

@@ -41,16 +41,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AttributeAnd.cs" />
+    <Compile Include="AttributeContainsElement.cs" />
     <Compile Include="AttributeElement.cs" />
     <Compile Include="Base.cs" />
+    <Compile Include="ExtendedAttributeElement.cs" />
     <Compile Include="Finder.cs" />
     <Compile Include="Content.cs" />
     <Compile Include="HtmlElement.cs" />
     <Compile Include="HtmlParentElement.cs" />
     <Compile Include="IAttribute.cs" />
     <Compile Include="IAttributeAnd.cs" />
+    <Compile Include="IAttributeContains.cs" />
     <Compile Include="IBase.cs" />
     <Compile Include="IContent.cs" />
+    <Compile Include="IExtendedAttribute.cs" />
     <Compile Include="IHtmlElement.cs" />
     <Compile Include="IHtmlParent.cs" />
     <Compile Include="IQuery.cs" />

@@ -22,32 +22,8 @@ using System.Text;
 
 namespace XPathItUp
 {
-    internal class Base : IBase
+    public interface IAttributeContains : IBase
     {
-        private List<string> expressionParts = new List<string>();
-
-        public string ToXPathExpression()
-        {
-            string expr = string.Empty;
-            foreach (string str in ExpressionParts)
-            {
-                expr += str;
-            }
-
-            return "//" + expr;
-        }
-
-        protected List<string> ExpressionParts
-        {
-            get
-            {
-                return expressionParts;
-            }
-            set
-            {
-                expressionParts = value;
-            }
-        }
 
     }
 }

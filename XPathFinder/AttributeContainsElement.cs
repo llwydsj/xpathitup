@@ -22,32 +22,18 @@ using System.Text;
 
 namespace XPathItUp
 {
-    internal class Base : IBase
+    internal class AttributeContainsElement : Base, IAttributeContains
     {
-        private List<string> expressionParts = new List<string>();
-
-        public string ToXPathExpression()
+        internal static IAttributeContains Create(List<string> expressionParts, string value)
         {
-            string expr = string.Empty;
-            foreach (string str in ExpressionParts)
-            {
-                expr += str;
-            }
-
-            return "//" + expr;
+            return new AttributeContainsElement(expressionParts, value);
         }
 
-        protected List<string> ExpressionParts
+        private AttributeContainsElement(List<string> expressionParts, string value)
         {
-            get
-            {
-                return expressionParts;
-            }
-            set
-            {
-                expressionParts = value;
-            }
+            this.ExpressionParts = expressionParts;
+            string attributeString = this.ExpressionParts[this.ExpressionParts.Count - 1];
+            this.ExpressionParts[this.ExpressionParts.Count - 1] = string.Format(attributeString, "contains(", "'" + value + "')");
         }
-
     }
 }

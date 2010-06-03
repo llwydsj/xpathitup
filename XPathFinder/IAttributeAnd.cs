@@ -24,6 +24,7 @@ namespace XPathItUp
 {
     public interface IAttributeAnd
     {
-        IAttribute Attribute(string name, string value);        
+        IAttribute Attribute(string name, string value);
+        IExtendedAttribute Attribute(string name);
     }
 }

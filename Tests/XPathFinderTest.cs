@@ -28,6 +28,20 @@ namespace Tests
     public class XPathFinderTest
     {
         [TestMethod]
+        public void Will_Create_Xpath_Query_Based_On_Attribute_Sub_String()
+        {
+            string xpath = XPathFinder.Find.Tag("div").With.Attribute("id").Containing("_txtUserName").ToXPathExpression();
+            Assert.AreEqual("//div[contains(@id,'_txtUserName')]",xpath);
+        }
+
+        [TestMethod]
+        public void Will_Create_Xpath_Query_Based_On_Both_Exact_Attribute_Match_And_Attribute_Sub_String_Match()
+        {
+            string xpath = XPathFinder.Find.Tag("a").With.Attribute("href", "http://www.test.com").And.Attribute("id").Containing("_lnkHome").ToXPathExpression();
+            Assert.AreEqual("//a[@href='http://www.test.com' and contains(@id,'_lnkHome')]", xpath);
+        }
+
+        [TestMethod]
         public void Will_Find_Anchor_Tag_With_Href_Equal_To_Specified_Url()
         {
             string xpath = XPathFinder.Find.Tag("a").With.Attribute("href", "http://test.test.com").ToXPathExpression();

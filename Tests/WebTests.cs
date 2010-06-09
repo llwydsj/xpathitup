@@ -122,7 +122,7 @@ namespace Tests
         {
             LoadPage("http://www.unit-testing.net/Articles");
 
-            string xpath = XPathFinder.Find.Tag("h2").With.Parent("div").Parent("div").ToXPathExpression();
+            string xpath = XPathFinder.Find.Tag("h2").With.Parent("div").With.Parent("div").ToXPathExpression();
             Assert.IsTrue(selenium.IsElementPresent("xpath=" + xpath));
         }
 
@@ -148,7 +148,7 @@ namespace Tests
         {
             LoadPage("http://www.unit-testing.net/Articles");
 
-            string xpath = XPathFinder.Find.Tag("h2").With.Parent("div").Parent("span").ToXPathExpression();
+            string xpath = XPathFinder.Find.Tag("h2").With.Parent("div").With.Parent("span").ToXPathExpression();
             Assert.IsFalse(selenium.IsElementPresent("xpath=" + xpath));
         }
 

@@ -34,7 +34,7 @@ namespace XPathItUp
                 expr += str;
             }
 
-            return "//" + expr;
+            return "/" + expr;
         }
 
         protected List<string> ExpressionParts

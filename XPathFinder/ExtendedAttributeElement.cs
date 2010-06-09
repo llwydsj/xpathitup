@@ -41,29 +41,32 @@ namespace XPathItUp
 {
     internal class ExtendedAttributeElement :Base, IExtendedAttribute
     {
+        private int attributeIndex = 0;
 
-        private ExtendedAttributeElement(List<string> expressionParts, string name)
+        private ExtendedAttributeElement(List<string> expressionParts, string name, int currentAttributeIndex)
         {
             this.ExpressionParts = expressionParts;
 
-            if (this.ExpressionParts[this.ExpressionParts.Count - 1] == " and ")
+            this.attributeIndex = currentAttributeIndex;
+
+            if (this.ExpressionParts[this.attributeIndex - 1] == " and ")
             {
-                this.ExpressionParts.Add("{0}@" + name + ",{1}]");
+                this.ExpressionParts.Insert(this.attributeIndex,"{0}@" + name + ",{1}]");
             }
             else
             {
-                this.ExpressionParts.Add("[{0}@" + name + ",{1}]");
+                this.ExpressionParts.Insert(this.attributeIndex,"[{0}@" + name + ",{1}]");
             }
         }
 
-        public static IExtendedAttribute Create(List<string> expressionParts, string name)
+        public static IExtendedAttribute Create(List<string> expressionParts, string name, int currentAttributeIndex)
         {
-            return new ExtendedAttributeElement(expressionParts, name);
+            return new ExtendedAttributeElement(expressionParts, name, currentAttributeIndex);
         }
 
         public IAttributeContains Containing(string value)
         {
-            return AttributeContainsElement.Create(this.ExpressionParts, value);
+            return AttributeContainsElement.Create(this.ExpressionParts, value,this.attributeIndex);
         }
    
     }

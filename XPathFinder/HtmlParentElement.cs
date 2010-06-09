@@ -39,5 +39,13 @@ namespace XPathItUp
         {
             return HtmlParentElement.Create(tag, this.ExpressionParts);   
         }
+
+        public IQuery With
+        {
+            get
+            {
+                return null;//WithExpression.Create(this.ExpressionParts);
+            }
+        }
     }
 }

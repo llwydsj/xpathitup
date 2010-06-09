@@ -24,27 +24,41 @@ namespace XPathItUp
 {
     internal class AttributeAnd : Base, IAttributeAnd
     {
-        internal static IAttributeAnd Create(List<string> expressionParts)
+        private int tagIndex = 0;
+        private int attributeIndex = 0;
+
+        internal static IAttributeAnd Create(List<string> expressionParts, int currentTagIndex, int currentAttributeIndex)
         {
-            return new AttributeAnd(expressionParts);
+            return new AttributeAnd(expressionParts, currentTagIndex, currentAttributeIndex);
         }
 
-        private AttributeAnd(List<string> expressionParts)
+        private AttributeAnd(List<string> expressionParts, int currentTagIndex,int currentAttributeIndex)
         {
+            this.tagIndex = currentTagIndex;
+            this.attributeIndex = currentAttributeIndex;
             this.ExpressionParts = expressionParts;
-            // remove closing ] bracket
-            this.ExpressionParts[this.ExpressionParts.Count - 1] = this.ExpressionParts[this.ExpressionParts.Count - 1].TrimEnd(']');
-            this.ExpressionParts.Add(" and ");
+            // remove closing ] bracket to allow for and 
+            this.ExpressionParts[this.attributeIndex - 1] = this.ExpressionParts[this.attributeIndex - 1].TrimEnd(']');
+            
+            this.ExpressionParts.Insert(this.attributeIndex, " and ");
+            
+            this.attributeIndex++;
         }
 
         public IAttribute Attribute(string name, string value)
         {
-            return AttributeElement.Create(this.ExpressionParts, name, value);
+            return AttributeElement.Create(this.ExpressionParts, name, value,this.tagIndex,this.attributeIndex);
         }
 
         public IExtendedAttribute Attribute(string name)
         {
-            return ExtendedAttributeElement.Create(this.ExpressionParts, name);
+            return ExtendedAttributeElement.Create(this.ExpressionParts, name, this.attributeIndex);
         }
+
+        //public IHtmlElement Parent(string tag)
+        //{
+        //    return HtmlElement.Create(tag, this.ExpressionParts);
+        //}
+
     }
 }

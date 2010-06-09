@@ -24,21 +24,35 @@ namespace XPathItUp
 {
     internal class HtmlElement : Base, IHtmlElement
     {
+        private int tagIndex = 0;
         public static HtmlElement Create(string tag)
         {
             return new HtmlElement(tag);
         }
 
+        public static HtmlElement Create(string tag, List<string> expressionParts)
+        {
+            return new HtmlElement(tag, expressionParts);
+        }
+
         private HtmlElement(string tag)
         {
-            this.ExpressionParts.Add(tag);
+            this.ExpressionParts.Add("/" + tag);
+            tagIndex = this.ExpressionParts.Count - 1;
+        }
+
+        private HtmlElement(string tag, List<string> expressionParts)
+        {
+            this.ExpressionParts = expressionParts;
+            this.ExpressionParts.Insert(0, "/" + tag);
+            tagIndex = 0;
         }
 
         public IQuery With
         {
             get
             {
-                return WithExpression.Create(this.ExpressionParts);
+                return WithExpression.Create(this.ExpressionParts,this.tagIndex);
             }
         }
 

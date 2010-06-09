@@ -28,6 +28,20 @@ namespace Tests
     public class XPathFinderTest
     {
         [TestMethod]
+        public void Will_Create_Xpath_Query_With_Parent_And_One_Attribute_On_Parent()
+        {
+            string xpath = XPathFinder.Find.Tag("a").With.Parent("div").With.Attribute("class", "someClass").ToXPathExpression();
+            Assert.AreEqual("//div[@class='someClass']/a", xpath);
+        }
+
+        [TestMethod]
+        public void Will_Create_Xpath_Query_To_Search_For_Tag_With_Two_Attributes_And_Parent_With_Two_Attributes()
+        {
+            string xpath = XPathFinder.Find.Tag("a").With.Parent("div").With.Attribute("class", "someClass").And.Attribute("id", "someId").ToXPathExpression();
+            Assert.AreEqual("//div[@class='someClass' and @id='someId']/a", xpath);
+        }
+
+        [TestMethod]
         public void Will_Create_Xpath_Query_Based_On_Attribute_Sub_String()
         {
             string xpath = XPathFinder.Find.Tag("div").With.Attribute("id").Containing("_txtUserName").ToXPathExpression();
@@ -35,10 +49,31 @@ namespace Tests
         }
 
         [TestMethod]
+        public void Will_Create_Xpath_To_Search_For_Tag_With_Parent_Containing_Attribute_Value()
+        {
+            string xpath = XPathFinder.Find.Tag("a").With.Parent("div").With.Attribute("id").Containing("_txtUserName").ToXPathExpression();
+            Assert.AreEqual("//div[contains(@id,'_txtUserName')]/a", xpath);
+        }
+
+        [TestMethod]
+        public void Will_Create_Xpath_Search_For_Tag_With_Parent_With_Exact_Match_On_Attribute_And_Contains_Search_On_Attribute()
+        {
+            string xpath = XPathFinder.Find.Tag("a").With.Parent("div").With.Attribute("class","myClass").And.Attribute("id").Containing("_txtUserName").ToXPathExpression();
+            Assert.AreEqual("//div[@class='myClass' and contains(@id,'_txtUserName')]/a", xpath);
+        }
+
+        [TestMethod]
         public void Will_Create_Xpath_Query_Based_On_Both_Exact_Attribute_Match_And_Attribute_Sub_String_Match()
         {
             string xpath = XPathFinder.Find.Tag("a").With.Attribute("href", "http://www.test.com").And.Attribute("id").Containing("_lnkHome").ToXPathExpression();
             Assert.AreEqual("//a[@href='http://www.test.com' and contains(@id,'_lnkHome')]", xpath);
+        }
+
+        [TestMethod]
+        public void Will_Create_Xpath_Query_Based_On_Exact_Match_On_Two_Attributes_And_Attribute_Sub_String_Match_On_One_Attribute()
+        {
+            string xpath = XPathFinder.Find.Tag("a").With.Attribute("href", "http://www.test.com").And.Attribute("attr1","val1").And.Attribute("id").Containing("_lnkHome").ToXPathExpression();
+            Assert.AreEqual("//a[@href='http://www.test.com' and @attr1='val1' and contains(@id,'_lnkHome')]", xpath);
         }
 
         [TestMethod]
@@ -53,7 +88,13 @@ namespace Tests
         {
             string xpath = XPathFinder.Find.Tag("a").With.Text("Test").ToXPathExpression();
             Assert.AreEqual("//a[text()='Test']", xpath);
+        }
 
+        [ExpectedException(typeof(NotImplementedException))]
+        [TestMethod]
+        public void Will_Create_Xpath_Query_Based_On_Tag_With_Parent_With_Text()
+        {
+            string xpath = XPathFinder.Find.Tag("a").With.Parent("div").With.Text("Hello").ToXPathExpression();
         }
 
         [TestMethod]
@@ -64,10 +105,38 @@ namespace Tests
         }
 
         [TestMethod]
+        public void Will_Create_XPath_Query_On_Two_Attributes()
+        {
+            string xpath = XPathFinder.Find.Tag("div").With.Attribute("attr1", "test1").And.Attribute("attr2", "test2").ToXPathExpression();
+            Assert.AreEqual("//div[@attr1='test1' and @attr2='test2']", xpath);
+        }
+
+        [TestMethod]
         public void Will_Create_XPath_Query_On_Four_Attributes()
         {
             string xpath = XPathFinder.Find.Tag("div").With.Attribute("class", "myClass").And.Attribute("attr1", "test1").And.Attribute("attr2", "test2").And.Attribute("attr3", "test3").ToXPathExpression();
             Assert.AreEqual("//div[@class='myClass' and @attr1='test1' and @attr2='test2' and @attr3='test3']", xpath);
+        }
+
+        [TestMethod]
+        public void Will_Create_XPath_Query_On_12_Attributes()
+        {
+            string xpath = XPathFinder.Find.Tag("div").With.
+                                                            Attribute("attr0", "test0").And.
+                                                            Attribute("attr1", "test1").And.
+                                                            Attribute("attr2", "test2").And.
+                                                            Attribute("attr3", "test3").And.
+                                                            Attribute("attr4", "test4").And.
+                                                            Attribute("attr5", "test5").And.
+                                                            Attribute("attr6", "test6").And.
+                                                            Attribute("attr7", "test7").And.
+                                                            Attribute("attr8", "test8").And.
+                                                            Attribute("attr9", "test9").And.
+                                                            Attribute("attr10", "test10").And.
+                                                            Attribute("attr11", "test11").ToXPathExpression();
+
+            Assert.AreEqual("//div[@attr0='test0' and @attr1='test1' and @attr2='test2' and @attr3='test3' and @attr4='test4' and @attr5='test5' and @attr6='test6' and @attr7='test7' and @attr8='test8' and @attr9='test9' and @attr10='test10' and @attr11='test11']", xpath);
+          
         }
 
         [TestMethod]
@@ -94,14 +163,14 @@ namespace Tests
         [TestMethod]
         public void Will_Create_XPath_For_Finding_Anchor_Tag_Inside_Div_Inside_Antoher_Div()
         {
-            string xpath = XPathFinder.Find.Tag("a").With.Parent("div").Parent("div").ToXPathExpression();
+            string xpath = XPathFinder.Find.Tag("a").With.Parent("div").With.Parent("div").ToXPathExpression();
             Assert.AreEqual("//div/div/a", xpath);
         }
 
         [TestMethod]
         public void Will_Create_XPath_For_Finding_Anchor_Tag_Inside_Span_Inside_Div_Inside_Another_Div()
         {
-            string xpath = XPathFinder.Find.Tag("a").With.Parent("span").Parent("div").Parent("div").ToXPathExpression();
+            string xpath = XPathFinder.Find.Tag("a").With.Parent("span").With.Parent("div").With.Parent("div").ToXPathExpression();
             Assert.AreEqual("//div/div/span/a", xpath);
         }
 

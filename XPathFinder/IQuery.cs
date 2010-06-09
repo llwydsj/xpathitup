@@ -24,7 +24,7 @@ namespace XPathItUp
 {
     public interface IQuery : IBase
     {
-        IHtmlParent Parent(string tag);
+        IHtmlElement Parent(string tag);
         IAttribute Attribute(string name, string value);
         IExtendedAttribute Attribute(string name);
         ITextElement Text(string text);

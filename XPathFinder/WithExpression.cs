@@ -24,29 +24,31 @@ namespace XPathItUp
 {
     internal class WithExpression : Base, IQuery
     {
-        private WithExpression(List<string> expressionParts)
+        private int tagIndex = 0;
+        private WithExpression(List<string> expressionParts,int currentTagIndex)
         {
             this.ExpressionParts = expressionParts;
+            this.tagIndex = currentTagIndex;
         }
 
-        internal static IQuery Create(List<string> expressionParts)
+        internal static IQuery Create(List<string> expressionParts, int currentTagIndex)
         {
-            return new WithExpression(expressionParts);
+            return new WithExpression(expressionParts,currentTagIndex);
         }
 
-        public IHtmlParent Parent(string tag)
+        public IHtmlElement Parent(string tag)
         {
-            return HtmlParentElement.Create(tag, this.ExpressionParts);
+            return HtmlElement.Create(tag, this.ExpressionParts);
         }
 
         public IAttribute Attribute(string name, string value)
         {
-            return AttributeElement.Create(this.ExpressionParts, name, value);
+            return AttributeElement.Create(this.ExpressionParts, name, value,this.tagIndex, this.tagIndex + 1);
         }
 
         public IExtendedAttribute Attribute(string name)
         {
-            return ExtendedAttributeElement.Create(this.ExpressionParts, name);
+            return ExtendedAttributeElement.Create(this.ExpressionParts, name, this.tagIndex + 1);
         }
 
         public ITextElement Text(string text)

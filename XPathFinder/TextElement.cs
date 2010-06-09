@@ -34,6 +34,12 @@ namespace XPathItUp
             string exp = string.Format("[text()='{0}']", text);
             this.ExpressionParts = expressionParts;
             expressionParts.Add(exp);
+
+            string temp = ToXPathExpression().TrimStart('/');
+            if(temp.Contains('/') == true)
+            {
+                throw new NotImplementedException("Text search on ancestor tag is not implemented");
+            }
         }
     }
 }

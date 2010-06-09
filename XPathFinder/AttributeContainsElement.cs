@@ -24,16 +24,19 @@ namespace XPathItUp
 {
     internal class AttributeContainsElement : Base, IAttributeContains
     {
-        internal static IAttributeContains Create(List<string> expressionParts, string value)
+        private int attributeIndex = 0;
+
+        internal static IAttributeContains Create(List<string> expressionParts, string value, int currentAttributeIndex)
         {
-            return new AttributeContainsElement(expressionParts, value);
+            return new AttributeContainsElement(expressionParts, value, currentAttributeIndex);
         }
 
-        private AttributeContainsElement(List<string> expressionParts, string value)
+        private AttributeContainsElement(List<string> expressionParts, string value, int currentAttributeIndex)
         {
             this.ExpressionParts = expressionParts;
-            string attributeString = this.ExpressionParts[this.ExpressionParts.Count - 1];
-            this.ExpressionParts[this.ExpressionParts.Count - 1] = string.Format(attributeString, "contains(", "'" + value + "')");
+            this.attributeIndex = currentAttributeIndex;
+            string attributeString = this.ExpressionParts[this.attributeIndex];
+            this.ExpressionParts[this.attributeIndex] = string.Format(attributeString, "contains(", "'" + value + "')");
         }
     }
 }

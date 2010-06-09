@@ -25,5 +25,6 @@ namespace XPathItUp
     public interface IHtmlParent : IBase
     {
         IHtmlParent Parent(string tag);
+        IQuery With { get; }
     }
 }

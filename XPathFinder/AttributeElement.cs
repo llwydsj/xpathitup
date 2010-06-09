@@ -24,29 +24,37 @@ namespace XPathItUp
 {
     internal class AttributeElement : Base, IAttribute
     {
-        public static IAttribute Create(List<string> expressionParts, string name, string value)
+        private int tagIndex = 0;
+        private int attributeIndex = 0;
+
+        public static IAttribute Create(List<string> expressionParts, string name, string value, int currentTagIndex,int currentAttributeIndex)
         {
-            return new AttributeElement(expressionParts, name, value);
+            return new AttributeElement(expressionParts, name, value, currentTagIndex,currentAttributeIndex);
         }
-        
-        private AttributeElement(List<string> expressionParts, string name, string value)
+
+        private AttributeElement(List<string> expressionParts, string name, string value, int currentTagIndex, int currentAttributeIndex)
         {
+            this.attributeIndex = currentAttributeIndex;
+            this.tagIndex = currentTagIndex;
             this.ExpressionParts = expressionParts;
-            if (this.ExpressionParts[this.ExpressionParts.Count - 1] != " and ")
+            
+            if (this.ExpressionParts[this.attributeIndex - 1] == " and ")
             {
-                this.ExpressionParts.Add(string.Format("[@{0}='{1}']", name, value));
+                this.ExpressionParts.Insert(this.attributeIndex, string.Format("@{0}='{1}']", name, value));
             }
             else
             {
-                this.ExpressionParts.Add(string.Format("@{0}='{1}']", name, value));
+                this.ExpressionParts.Insert(this.attributeIndex, string.Format("[@{0}='{1}']", name, value));
             }
+
+            this.attributeIndex++;
         }
 
         public IAttributeAnd And
         {
             get
             {
-                return AttributeAnd.Create(this.ExpressionParts);
+                return AttributeAnd.Create(this.ExpressionParts,this.tagIndex,this.attributeIndex);
             }
         }
 

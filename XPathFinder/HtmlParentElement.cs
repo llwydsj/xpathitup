@@ -15,37 +15,37 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
 
-namespace XPathItUp
-{
-    internal class HtmlParentElement : Base, IHtmlParent
-    {
-        public static HtmlParentElement Create(string tag, List<string> expressionParts)
-        {
-            return new HtmlParentElement(tag, expressionParts);
-        }
+//namespace XPathItUp
+//{
+//    internal class HtmlParentElement : Base, IHtmlParent
+//    {
+//        public static HtmlParentElement Create(string tag, List<string> expressionParts)
+//        {
+//            return new HtmlParentElement(tag, expressionParts);
+//        }
 
-        private HtmlParentElement(string tag, List<string> expressionParts)
-        {
-            this.ExpressionParts = expressionParts;
-            this.ExpressionParts.Insert(0, tag + "/");
-        }
+//        private HtmlParentElement(string tag, List<string> expressionParts)
+//        {
+//            this.ExpressionParts = expressionParts;
+//            this.ExpressionParts.Insert(0, tag + "/");
+//        }
 
-        public IHtmlParent Parent(string tag)
-        {
-            return HtmlParentElement.Create(tag, this.ExpressionParts);   
-        }
+//        public IHtmlParent Parent(string tag)
+//        {
+//            return HtmlParentElement.Create(tag, this.ExpressionParts);   
+//        }
 
-        public IQuery With
-        {
-            get
-            {
-                return null;//WithExpression.Create(this.ExpressionParts);
-            }
-        }
-    }
-}
+//        public IQuery With
+//        {
+//            get
+//            {
+//                return null;//WithExpression.Create(this.ExpressionParts);
+//            }
+//        }
+//    }
+//}

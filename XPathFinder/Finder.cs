@@ -24,14 +24,14 @@ namespace XPathItUp
 {
     public class Finder
     {
-        public IHtmlElement Tag(string tag)
+        public ITagElement Tag(string tag)
         {
             if (string.IsNullOrEmpty(tag))
             {
                 throw new ArgumentNullException("tag");
             }
 
-            return HtmlElement.Create(tag);
+            return TagElement.Create(tag);
         }
     }
 }

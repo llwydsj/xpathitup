@@ -22,45 +22,45 @@ using System.Text;
 
 namespace XPathItUp
 {
-    internal class HtmlElement : Base, IHtmlElement
+    internal class TagElement : Base, ITagElement
     {
         protected int tagIndex = 0;
-        public static HtmlElement Create(string tag)
+        public static TagElement Create(string tag)
         {
-            return new HtmlElement(tag);
+            return new TagElement(tag);
         }
 
-        public static HtmlElement Create(string tag, List<string> expressionParts)
+        public static TagElement Create(string tag, List<string> expressionParts)
         {
-            return new HtmlElement(tag, expressionParts);
+            return new TagElement(tag, expressionParts);
         }
 
-        public static HtmlElement Create(string tag, List<string> expressionParts, string siblingType)
+        public static TagElement Create(string tag, List<string> expressionParts, string siblingType)
         {
-            return new HtmlElement(tag, expressionParts,siblingType);
+            return new TagElement(tag, expressionParts,siblingType);
         }
 
-        internal HtmlElement(string tag)
+        private TagElement(string tag)
         {
             this.ExpressionParts.Add("/" + tag);
             tagIndex = this.ExpressionParts.Count - 1;
         }
 
-        internal HtmlElement(string tag, List<string> expressionParts, string siblingType)
+        private TagElement(string tag, List<string> expressionParts, string siblingType)
         {
             this.ExpressionParts = expressionParts;
             tagIndex++;
             this.ExpressionParts.Insert(tagIndex,string.Format("/{0}::{1}", siblingType, tag));
         }
 
-        internal HtmlElement(string tag, List<string> expressionParts)
+        private TagElement(string tag, List<string> expressionParts)
         {
             this.ExpressionParts = expressionParts;
             this.ExpressionParts.Insert(0, "/" + tag);
             tagIndex = 0;
         }
 
-        public IQuery With
+        public IWith With
         {
             get
             {

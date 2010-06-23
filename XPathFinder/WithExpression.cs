@@ -22,7 +22,7 @@ using System.Text;
 
 namespace XPathItUp
 {
-    internal class WithExpression : Base, IQuery
+    internal class WithExpression : Base, IWith
     {
         private int tagIndex = 0;
         private WithExpression(List<string> expressionParts,int currentTagIndex)
@@ -31,14 +31,14 @@ namespace XPathItUp
             this.tagIndex = currentTagIndex;
         }
 
-        internal static IQuery Create(List<string> expressionParts, int currentTagIndex)
+        internal static IWith Create(List<string> expressionParts, int currentTagIndex)
         {
             return new WithExpression(expressionParts,currentTagIndex);
         }
 
-        public IHtmlElement Parent(string tag)
+        public ITagElement Parent(string tag)
         {
-            return HtmlElement.Create(tag, this.ExpressionParts);
+            return TagElement.Create(tag, this.ExpressionParts);
         }
 
         public IAttribute Attribute(string name, string value)

@@ -57,8 +57,11 @@
     <Compile Include="IExtendedAttribute.cs" />
     <Compile Include="IHtmlElement.cs" />
     <Compile Include="IHtmlParent.cs" />
+    <Compile Include="ILimitedQuery.cs" />
     <Compile Include="IQuery.cs" />
+    <Compile Include="ISibling.cs" />
     <Compile Include="ITextElement.cs" />
+    <Compile Include="SiblingElement.cs" />
     <Compile Include="TextElement.cs" />
     <Compile Include="WithExpression.cs" />
     <Compile Include="XPathFinder.cs" />

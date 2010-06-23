@@ -35,20 +35,15 @@ namespace XPathItUp
             this.tagIndex = currentTagIndex;
             string exp = string.Format("[text()='{0}']", text);
             this.ExpressionParts = expressionParts;
-            expressionParts.Add(exp);
-
-            string temp = ToXPathExpression().TrimStart('/');
-            if(temp.Contains('/') == true)
-            {
-                throw new NotImplementedException("Text search on ancestor tag is not implemented");
-            }
+            
+            this.ExpressionParts.Insert(this.tagIndex + 1,exp);
         }
 
         public IAttributeAnd And
         {
             get
             {
-                return AttributeAnd.Create(this.ExpressionParts, this.tagIndex, 2);
+                return AttributeAnd.Create(this.ExpressionParts, this.tagIndex, this.tagIndex + 2);
             }
         }
     }

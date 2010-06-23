@@ -22,11 +22,16 @@ using System.Text;
 
 namespace XPathItUp
 {
-    public interface IQuery : IBase
+    public interface IQuery : ILimitedQuery
     {
         IHtmlElement Parent(string tag);
-        IAttribute Attribute(string name, string value);
-        IExtendedAttribute Attribute(string name);
-        ITextElement Text(string text);
+        //IAttribute Attribute(string name, string value);
+        //IExtendedAttribute Attribute(string name);
+        //ITextElement Text(string text);
+
+        ISibling PrecedingSibling(string tag);
+        ISibling FollowingSibling(string tag);
+     
+
     }
 }

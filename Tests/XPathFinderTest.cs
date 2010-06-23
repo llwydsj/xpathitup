@@ -84,7 +84,70 @@ namespace Tests
         }
 
         [TestMethod]
-        public void Will_Create_Xpath_Search_For_Tag_With_Parent_With_Exact_Match_On_Attribute_And_Contains_Search_On_Attribute()
+        public void Will_Create_Xpath_Query_For_Tag_With_Preceding_Sibling()
+        {
+            string xpath = XPathFinder.Find.Tag("td").With.PrecedingSibling("td").ToXPathExpression();
+            Assert.AreEqual("//td/preceding-sibling::td",xpath);
+        }
+
+        [TestMethod]
+        public void Will_Create_Xpath_Query_For_Tag_With_Following_Sibling_With_Attribute()
+        {
+            string xpath = XPathFinder.Find.Tag("td").With.FollowingSibling("td").With.Attribute("class", "cell").ToXPathExpression();
+            Assert.AreEqual("//td/following-sibling::td[@class='cell']", xpath);
+        }
+
+        [TestMethod]
+        public void Will_Create_Xpath_Query_For_Tag_With_Preceding_Sibling_With_Attribute()
+        {
+            string xpath = XPathFinder.Find.Tag("td").With.PrecedingSibling("td").With.Attribute("class", "cell").ToXPathExpression();
+            Assert.AreEqual("//td/preceding-sibling::td[@class='cell']", xpath);
+        }
+
+        [TestMethod]
+        public void Will_Create_Xpath_Query_For_Tag_With_Preceding_Sibling_With_Text_And_Attribute()
+        {
+            string xpath = XPathFinder.Find.Tag("div").With.PrecedingSibling("div").With.Text("myText").And.Attribute("class", "cell").ToXPathExpression();
+            Assert.AreEqual("//div/preceding-sibling::div[text()='myText' and @class='cell']", xpath);
+        }
+
+        [TestMethod]
+        public void Will_Create_Xpath_Query_For_Tag_With_Preceding_Sibling_With_Text_And_Two_Attributes()
+        {
+            string xpath = XPathFinder.Find.Tag("div").With.PrecedingSibling("div").With.Text("myText").And.Attribute("class", "cell").And.Attribute("id","id1").ToXPathExpression();
+            Assert.AreEqual("//div/preceding-sibling::div[text()='myText' and @class='cell' and @id='id1']", xpath);
+        }
+
+        [TestMethod]
+        public void Will_Create_Xpath_Query_For_Tag_With_Preceding_Sibling_With_Text_And_One_Exact_Attribute_And_One_Partial_Attribute()
+        {
+            string xpath = XPathFinder.Find.Tag("div").With.PrecedingSibling("div").With.Text("myText").And.Attribute("class", "cell").And.Attribute("id").Containing("_txtbox").ToXPathExpression();
+            Assert.AreEqual("//div/preceding-sibling::div[text()='myText' and @class='cell' and contains(@id,'_txtbox')]", xpath);
+        }
+
+        [TestMethod]
+        public void Will_Create_Xpath_Query_For_Tag_With_Following_Sibling_With_Text_And_Attribute()
+        {
+            string xpath = XPathFinder.Find.Tag("div").With.FollowingSibling("div").With.Text("myText").And.Attribute("class", "cell").ToXPathExpression();
+            Assert.AreEqual("//div/following-sibling::div[text()='myText' and @class='cell']", xpath);
+        }
+
+        [TestMethod]
+        public void Will_Create_Xpath_Query_For_Tag_With_Following_Sibling()
+        {
+            string xpath = XPathFinder.Find.Tag("td").With.FollowingSibling("td").ToXPathExpression();
+            Assert.AreEqual("//td/following-sibling::td", xpath);
+        }
+
+        [TestMethod]
+        public void Will_Create_Xpath_Query_For_Tag_With_Parent_With_Following_Sibling()
+        {
+            string xpath = XPathFinder.Find.Tag("td").With.Parent("tr1").With.FollowingSibling("tr2").ToXPathExpression();
+            Assert.AreEqual("//tr1/following-sibling::tr2/td", xpath);
+        }
+
+        [TestMethod]
+        public void Will_Create_Xpath_Query_For_Tag_With_Parent_With_Exact_Match_On_Attribute_And_Contains_Search_On_Attribute()
         {
             string xpath = XPathFinder.Find.Tag("a").With.Parent("div").With.Attribute("class","myClass").And.Attribute("id").Containing("_txtUserName").ToXPathExpression();
             Assert.AreEqual("//div[@class='myClass' and contains(@id,'_txtUserName')]/a", xpath);
@@ -118,11 +181,12 @@ namespace Tests
             Assert.AreEqual("//a[text()='Test']", xpath);
         }
 
-        [ExpectedException(typeof(NotImplementedException))]
         [TestMethod]
         public void Will_Create_Xpath_Query_Based_On_Tag_With_Parent_With_Text()
         {
             string xpath = XPathFinder.Find.Tag("a").With.Parent("div").With.Text("Hello").ToXPathExpression();
+
+            Assert.AreEqual("//div[text()='Hello']/a",xpath);
         }
 
         [TestMethod]

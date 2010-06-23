@@ -24,7 +24,7 @@ namespace XPathItUp
 {
     internal class HtmlElement : Base, IHtmlElement
     {
-        private int tagIndex = 0;
+        protected int tagIndex = 0;
         public static HtmlElement Create(string tag)
         {
             return new HtmlElement(tag);
@@ -35,13 +35,25 @@ namespace XPathItUp
             return new HtmlElement(tag, expressionParts);
         }
 
-        private HtmlElement(string tag)
+        public static HtmlElement Create(string tag, List<string> expressionParts, string siblingType)
+        {
+            return new HtmlElement(tag, expressionParts,siblingType);
+        }
+
+        internal HtmlElement(string tag)
         {
             this.ExpressionParts.Add("/" + tag);
             tagIndex = this.ExpressionParts.Count - 1;
         }
 
-        private HtmlElement(string tag, List<string> expressionParts)
+        internal HtmlElement(string tag, List<string> expressionParts, string siblingType)
+        {
+            this.ExpressionParts = expressionParts;
+            tagIndex++;
+            this.ExpressionParts.Insert(tagIndex,string.Format("/{0}::{1}", siblingType, tag));
+        }
+
+        internal HtmlElement(string tag, List<string> expressionParts)
         {
             this.ExpressionParts = expressionParts;
             this.ExpressionParts.Insert(0, "/" + tag);

@@ -24,13 +24,15 @@ namespace XPathItUp
 {
     internal class TextElement: Base, ITextElement
     {
-        internal static ITextElement Create(string text, List<string> expressionParts)
+        private int tagIndex = 0;
+        internal static ITextElement Create(string text, List<string> expressionParts, int currentTagIndex)
         {
-            return new TextElement(text, expressionParts);
+            return new TextElement(text, expressionParts,currentTagIndex);
         }
 
-        private TextElement(string text, List<string> expressionParts)
+        private TextElement(string text, List<string> expressionParts,int currentTagIndex)
         {
+            this.tagIndex = currentTagIndex;
             string exp = string.Format("[text()='{0}']", text);
             this.ExpressionParts = expressionParts;
             expressionParts.Add(exp);
@@ -39,6 +41,14 @@ namespace XPathItUp
             if(temp.Contains('/') == true)
             {
                 throw new NotImplementedException("Text search on ancestor tag is not implemented");
+            }
+        }
+
+        public IAttributeAnd And
+        {
+            get
+            {
+                return AttributeAnd.Create(this.ExpressionParts, this.tagIndex, 2);
             }
         }
     }

@@ -53,7 +53,7 @@ namespace XPathItUp
 
         public ITextElement Text(string text)
         {
-            return TextElement.Create(text, this.ExpressionParts);
+            return TextElement.Create(text, this.ExpressionParts, this.tagIndex);
         }
 
     }

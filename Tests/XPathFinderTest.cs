@@ -28,6 +28,34 @@ namespace Tests
     public class XPathFinderTest
     {
         [TestMethod]
+        public void Will_Create_Xpath_Query_Based_On_Combination_Of_Text_And_Single_Attribute()
+        {
+            string xpath = XPathFinder.Find.Tag("a").With.Text("Home Page").And.Attribute("href", "http://www.test.com").ToXPathExpression();
+            Assert.AreEqual("//a[text()='Home Page' and @href='http://www.test.com']", xpath);
+        }
+
+        [TestMethod]
+        public void Will_Create_Xpath_Query_Based_On_Combination_Of_Text_And_Three_Attributes()
+        {
+            string xpath = XPathFinder.Find.Tag("a").With.Text("Home Page").And.Attribute("href", "http://www.test.com").And.Attribute("class","myClass").And.Attribute("id","lnkHome").ToXPathExpression();
+            Assert.AreEqual("//a[text()='Home Page' and @href='http://www.test.com' and @class='myClass' and @id='lnkHome']", xpath);
+        }
+
+        [TestMethod]
+        public void Will_Create_Xpath_Query_Based_On_Combination_Of_Text_And_Partial_Attribute_Value()
+        {
+            string xpath = XPathFinder.Find.Tag("a").With.Text("Home Page").And.Attribute("id").Containing("_ctrlId").ToXPathExpression();
+            Assert.AreEqual("//a[text()='Home Page' and contains(@id,'_ctrlId')]", xpath);
+        }
+
+        [TestMethod]
+        public void Will_Create_Xpath_Query_Based_On_Combination_Of_Text_And_Exact_Attribute_And_Partial_Attribute_Value()
+        {
+            string xpath = XPathFinder.Find.Tag("a").With.Text("Home Page").And.Attribute("href", "http://www.test.com").And.Attribute("id").Containing("_ctrlId").ToXPathExpression();
+            Assert.AreEqual("//a[text()='Home Page' and @href='http://www.test.com' and contains(@id,'_ctrlId')]", xpath);
+        }
+
+        [TestMethod]
         public void Will_Create_Xpath_Query_With_Parent_And_One_Attribute_On_Parent()
         {
             string xpath = XPathFinder.Find.Tag("a").With.Parent("div").With.Attribute("class", "someClass").ToXPathExpression();

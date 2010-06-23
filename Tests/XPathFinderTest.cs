@@ -98,6 +98,13 @@ namespace Tests
         }
 
         [TestMethod]
+        public void Will_Create_Xpath_Query_For_Tag_With_Following_Sibling_With_Text()
+        {
+            string xpath = XPathFinder.Find.Tag("div").With.FollowingSibling("div").With.Text("Hello").ToXPathExpression();
+            Assert.AreEqual("//div/following-sibling::div[text()='Hello']", xpath);
+        }
+
+        [TestMethod]
         public void Will_Create_Xpath_Query_For_Tag_With_Preceding_Sibling_With_Attribute()
         {
             string xpath = XPathFinder.Find.Tag("td").With.PrecedingSibling("td").With.Attribute("class", "cell").ToXPathExpression();

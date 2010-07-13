@@ -30,14 +30,10 @@ namespace XPathItUp
             return new TagElement(tag);
         }
 
-        public static TagElement Create(string tag, List<string> expressionParts)
+        public static TagElement Create(string tag, List<string> expressionParts,int tagIndex)
         {
-            return new TagElement(tag, expressionParts);
-        }
+            return new TagElement(tag, expressionParts,tagIndex);
 
-        public static TagElement Create(string tag, List<string> expressionParts, string siblingType)
-        {
-            return new TagElement(tag, expressionParts,siblingType);
         }
 
         private TagElement(string tag)
@@ -46,18 +42,21 @@ namespace XPathItUp
             tagIndex = this.ExpressionParts.Count - 1;
         }
 
-        private TagElement(string tag, List<string> expressionParts, string siblingType)
+        private TagElement(string tag, List<string> expressionParts,int tagIndex)
         {
             this.ExpressionParts = expressionParts;
-            tagIndex++;
-            this.ExpressionParts.Insert(tagIndex,string.Format("/{0}::{1}", siblingType, tag));
-        }
-
-        private TagElement(string tag, List<string> expressionParts)
-        {
-            this.ExpressionParts = expressionParts;
-            this.ExpressionParts.Insert(0, "/" + tag);
-            tagIndex = 0;
+            // parent
+            if (tagIndex == 0)
+            {
+                this.ExpressionParts.Insert(tagIndex, "/" + tag);
+                this.tagIndex = tagIndex;
+            }
+            // child
+            else
+            {
+                this.ExpressionParts.Add("/" + tag);
+                this.tagIndex = this.ExpressionParts.Count - 1;
+            }
         }
 
         public IWith With

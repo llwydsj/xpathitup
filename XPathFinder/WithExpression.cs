@@ -38,7 +38,12 @@ namespace XPathItUp
 
         public ITagElement Parent(string tag)
         {
-            return TagElement.Create(tag, this.ExpressionParts);
+            return TagElement.Create(tag, this.ExpressionParts,0);
+        }
+
+        public ITagElement Child(string tag)
+        {
+            return TagElement.Create(tag, this.ExpressionParts,-1);
         }
 
         public IAttribute Attribute(string name, string value)

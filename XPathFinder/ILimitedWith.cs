@@ -27,5 +27,6 @@ namespace XPathItUp
         IAttribute Attribute(string name, string value);
         IExtendedAttribute Attribute(string name);
         ITextElement Text(string text);
+        ITagElement Child(string tag);
     }
 }

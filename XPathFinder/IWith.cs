@@ -25,13 +25,9 @@ namespace XPathItUp
     public interface IWith : ILimitedWith
     {
         ITagElement Parent(string tag);
-        //IAttribute Attribute(string name, string value);
-        //IExtendedAttribute Attribute(string name);
-        //ITextElement Text(string text);
 
         ISibling PrecedingSibling(string tag);
         ISibling FollowingSibling(string tag);
-     
-
+       // ITagElement Child(string tag);
     }
 }

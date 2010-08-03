@@ -22,10 +22,10 @@ using System.Text;
 
 namespace XPathItUp
 {
-    public interface IAttributeAnd
+    public interface IAndElement
     {
         IAttribute Attribute(string name, string value);
         IExtendedAttribute Attribute(string name);
-        //IHtmlElement Parent(string tag);
+        ITagElement Child(string tag);
     }
 }

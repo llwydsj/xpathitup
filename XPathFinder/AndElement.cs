@@ -22,17 +22,17 @@ using System.Text;
 
 namespace XPathItUp
 {
-    internal class AttributeAnd : Base, IAttributeAnd
+    internal class AndElement : Base, IAndElement
     {
         private int tagIndex = 0;
         private int attributeIndex = 0;
 
-        internal static IAttributeAnd Create(List<string> expressionParts, int currentTagIndex, int currentAttributeIndex)
+        internal static IAndElement Create(List<string> expressionParts, int currentTagIndex, int currentAttributeIndex)
         {
-            return new AttributeAnd(expressionParts, currentTagIndex, currentAttributeIndex);
+            return new AndElement(expressionParts, currentTagIndex, currentAttributeIndex);
         }
 
-        private AttributeAnd(List<string> expressionParts, int currentTagIndex,int currentAttributeIndex)
+        private AndElement(List<string> expressionParts, int currentTagIndex,int currentAttributeIndex)
         {
             this.tagIndex = currentTagIndex;
             this.attributeIndex = currentAttributeIndex;
@@ -55,10 +55,12 @@ namespace XPathItUp
             return ExtendedAttributeElement.Create(this.ExpressionParts, name, this.attributeIndex);
         }
 
-        //public IHtmlElement Parent(string tag)
-        //{
-        //    return HtmlElement.Create(tag, this.ExpressionParts);
-        //}
+        public ITagElement Child(string tag)
+        {
+            // replace " and " with closing bracket 
+            this.ExpressionParts[this.ExpressionParts.Count - 1] = "]";
+            return TagElement.Create(tag, this.ExpressionParts, -1);
+        }
 
     }
 }

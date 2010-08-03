@@ -26,16 +26,16 @@ namespace XPathItUp
     {
         private int tagIndex = 0;
        
-        public static SiblingElement Create(string tag, List<string> expressionParts, string siblingType)
+        public static SiblingElement Create(string tag, List<string> expressionParts, string siblingType,int tagIndex)
         {
-            return new SiblingElement(tag,expressionParts,siblingType);
+            return new SiblingElement(tag,expressionParts,siblingType,tagIndex);
         }
 
-        private SiblingElement(string tag, List<string> expressionParts, string siblingType)
+        private SiblingElement(string tag, List<string> expressionParts, string siblingType, int tagIndex)
         {
             this.ExpressionParts = expressionParts;
-            tagIndex++;
             this.ExpressionParts.Insert(tagIndex,string.Format("/{0}::{1}", siblingType, tag));
+            this.tagIndex = this.ExpressionParts.Count - 1;
         }
 
         public new ILimitedWith With

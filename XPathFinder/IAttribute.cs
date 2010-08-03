@@ -24,6 +24,6 @@ namespace XPathItUp
 {
     public interface IAttribute : IBase
     {
-        IAttributeAnd And { get; }
+        IAndElement And { get; }
     }
 }

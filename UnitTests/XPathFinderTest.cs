@@ -28,6 +28,42 @@ namespace UnitTests
     [TestFixture]
     public class XPathFinderTest
     {
+        
+        [Test]
+        public void Will_Create_Xpath_Query_Where_Both_Parent_And_Child_Has_Exact_Attributes()
+        {
+            string xpath = XPathFinder.Find.Tag("div").With.Attribute("id", "divId").And.Child("span").With.Attribute("id", "spanId").ToXPathExpression();
+            Assert.AreEqual("//div[@id='divId']/span[@id='spanId']", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_With_Parent_And_Child_With_Two_Exact_Attributes()
+        {
+            string xpath = XPathFinder.Find.Tag("div").With.Attribute("id", "divId").And.Child("span").With.Attribute("id", "spanId").And.Attribute("class","myClass").ToXPathExpression();
+            Assert.AreEqual("//div[@id='divId']/span[@id='spanId' and @class='myClass']", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_With_Parent_And_Child_With_One_Exact_Attribute_And_One_Partial_Attribute()
+        {
+            string xpath = XPathFinder.Find.Tag("div").With.Attribute("id", "divId").And.Child("span").With.Attribute("id", "spanId").And.Attribute("class").Containing("my").ToXPathExpression();
+            Assert.AreEqual("//div[@id='divId']/span[@id='spanId' and contains(@class,'my')]", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_Where_Parent_Has_Text_And_Child_Has_Exact_Attribute()
+        {
+            string xpath = XPathFinder.Find.Tag("div").With.Text("someText").And.Child("span").With.Attribute("id", "spanId").ToXPathExpression();
+            Assert.AreEqual("//div[text()='someText']/span[@id='spanId']", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_Where_Parent_Has_Text_And_Child_Has_Exact_Attribute_And_Child()
+        {
+            string xpath = XPathFinder.Find.Tag("div").With.Text("someText").And.Child("span").With.Attribute("id", "spanId").And.Child("a").With.Attribute("href", "www.test.com").ToXPathExpression();
+            Assert.AreEqual("//div[text()='someText']/span[@id='spanId']/a[@href='www.test.com']", xpath);
+        }
+
         [Test]
         public void Will_Create_Xpath_Query_Based_On_Parent_And_Child()
         {
@@ -187,6 +223,27 @@ namespace UnitTests
         {
             string xpath = XPathFinder.Find.Tag("div").With.PrecedingSibling("div").With.Text("myText").And.Attribute("class", "cell").And.Attribute("id").Containing("_txtbox").ToXPathExpression();
             Assert.AreEqual("//div/preceding-sibling::div[text()='myText' and @class='cell' and contains(@id,'_txtbox')]", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_With_Parent_With_Child_With_Sibling()
+        {
+            string xpath = XPathFinder.Find.Tag("div").With.Child("span").With.FollowingSibling("span").ToXPathExpression();
+            Assert.AreEqual("//div/span/following-sibling::span", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_With_Parent_With_Child_With_Sibling_With_Child_With_Attribute()
+        {
+            string xpath = XPathFinder.Find.Tag("div").With.Child("span").With.FollowingSibling("span").With.Child("p").With.Attribute("class","myPClass").ToXPathExpression();
+            Assert.AreEqual("//div/span/following-sibling::span/p[@class='myPClass']", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_With_Parent_With_Exact_Attribute_And_Child_With_Sibling()
+        {
+            string xpath = XPathFinder.Find.Tag("div").With.Attribute("id", "divId").And.Child("span").With.FollowingSibling("span").ToXPathExpression();
+            Assert.AreEqual("//div[@id='divId']/span/following-sibling::span", xpath);
         }
 
         [Test]

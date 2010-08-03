@@ -39,11 +39,11 @@ namespace XPathItUp
             this.ExpressionParts.Insert(this.tagIndex + 1,exp);
         }
 
-        public IAttributeAnd And
+        public IAndElement And
         {
             get
             {
-                return AttributeAnd.Create(this.ExpressionParts, this.tagIndex, this.tagIndex + 2);
+                return AndElement.Create(this.ExpressionParts, this.tagIndex, this.tagIndex + 2);
             }
         }
     }

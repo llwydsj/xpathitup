@@ -50,11 +50,11 @@ namespace XPathItUp
             this.attributeIndex++;
         }
 
-        public IAttributeAnd And
+        public IAndElement And
         {
             get
             {
-                return AttributeAnd.Create(this.ExpressionParts,this.tagIndex,this.attributeIndex);
+                return AndElement.Create(this.ExpressionParts,this.tagIndex,this.attributeIndex);
             }
         }
 

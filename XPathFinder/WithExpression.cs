@@ -43,7 +43,7 @@ namespace XPathItUp
 
         public ITagElement Child(string tag)
         {
-            return TagElement.Create(tag, this.ExpressionParts,-1);
+            return TagElement.Create(tag, this.ExpressionParts, this.tagIndex + 1);
         }
 
         public IAttribute Attribute(string name, string value)
@@ -63,12 +63,12 @@ namespace XPathItUp
 
         public ISibling PrecedingSibling(string tag)
         {
-            return SiblingElement.Create(tag, this.ExpressionParts, "preceding-sibling");
+            return SiblingElement.Create(tag, this.ExpressionParts, "preceding-sibling",this.tagIndex + 1);
         }
 
         public ISibling FollowingSibling(string tag)
         {
-            return SiblingElement.Create(tag, this.ExpressionParts, "following-sibling");
+            return SiblingElement.Create(tag, this.ExpressionParts, "following-sibling",this.tagIndex + 1);
         }
     }
 }

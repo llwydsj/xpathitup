@@ -24,6 +24,8 @@ namespace XPathItUp
 {
     internal class Content : Base, IContent
     {
+        private int tagIndex = 0;
+
         internal static IContent Create(string text, List<string> expressionParts)
         {
             return new Content(text,expressionParts);
@@ -36,6 +38,13 @@ namespace XPathItUp
             expressionParts.Add(exp);
         }
 
+        public IAndElement And
+        {
+            get
+            {
+                return AndElement.Create(this.ExpressionParts, this.tagIndex, this.tagIndex + 2);
+            }
+        }
       
     }
 }

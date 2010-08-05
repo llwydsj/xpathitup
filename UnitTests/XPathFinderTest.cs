@@ -369,6 +369,20 @@ namespace UnitTests
         }
 
         [Test]
+        public void Will_Create_XPath_With_Text_Contains_Anded_With_Exact_Attribute()
+        {
+            string xpath = XPathFinder.Find.Tag("a").Containing("Home Page").And.Attribute("id", "myId").ToXPathExpression();
+            Assert.AreEqual("//a[contains(.,'Home Page') and @id='myId']", xpath);
+        }
+
+        [Test]
+        public void Will_Create_XPath_With_Text_Contains_Anded_With_Partial_Attribute()
+        {
+            string xpath = XPathFinder.Find.Tag("a").Containing("Home Page").And.Attribute("id").Containing("_somId").ToXPathExpression();
+            Assert.AreEqual("//a[contains(.,'Home Page') and contains(@id,'_somId')]", xpath);
+        }
+
+        [Test]
         public void Will_Create_XPath_For_Finding_Anchor_Tag_Containing_The_Text_Home_Page()
         {
             string xpath = XPathFinder.Find.Tag("a").Containing("Home Page").ToXPathExpression();

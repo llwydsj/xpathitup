@@ -24,6 +24,7 @@ namespace XPathItUp
 {
     internal class AttributeContainsElement : Base, IAttributeContains
     {
+        private int tagIndex = 0;
         private int attributeIndex = 0;
 
         internal static IAttributeContains Create(List<string> expressionParts, string value, int currentAttributeIndex)
@@ -37,6 +38,14 @@ namespace XPathItUp
             this.attributeIndex = currentAttributeIndex;
             string attributeString = this.ExpressionParts[this.attributeIndex];
             this.ExpressionParts[this.attributeIndex] = string.Format(attributeString, "contains(", "'" + value + "')");
+        }
+
+        public IAndElement And
+        {
+            get
+            {
+                return AndElement.Create(this.ExpressionParts, this.tagIndex, this.tagIndex + 2);
+            }
         }
     }
 }

@@ -50,6 +50,22 @@ namespace UnitTests
             Assert.AreEqual("//div[@id='divId']/span[@id='spanId' and contains(@class,'my')]", xpath);
         }
 
+
+        [Test]
+        public void Will_Create_Xpath_Query_Where_Partial_Attribute_Is_Anded_With_Exact_Attribute()
+        {
+            string xpath = XPathFinder.Find.Tag("div").With.Attribute("class").Containing("my").And.Attribute("id", "myId").ToXPathExpression();
+            Assert.AreEqual("//div[contains(@class,'my') and @id='myId']",xpath);
+           
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_Where_Partial_Attributes_Are_Anded()
+        {
+            string xpath = XPathFinder.Find.Tag("div").With.Attribute("class").Containing("myClass").And.Attribute("id").Containing("_myID").ToXPathExpression();
+            Assert.AreEqual("//div[contains(@class,'myClass') and contains(@id,'_myID')]", xpath);
+        }
+
         [Test]
         public void Will_Create_Xpath_Query_Where_Parent_Has_Text_And_Child_Has_Exact_Attribute()
         {

@@ -41,8 +41,6 @@ namespace XPathItUp
 {
     internal class ExtendedAttributeElement :Base, IExtendedAttribute
     {
-        private int attributeIndex = 0;
-
         private ExtendedAttributeElement(List<string> expressionParts, string name, int currentAttributeIndex)
         {
             this.ExpressionParts = expressionParts;

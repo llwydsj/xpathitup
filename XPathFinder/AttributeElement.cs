@@ -24,9 +24,6 @@ namespace XPathItUp
 {
     internal class AttributeElement : Base, IAttribute
     {
-        private int tagIndex = 0;
-        private int attributeIndex = 0;
-
         public static IAttribute Create(List<string> expressionParts, string name, string value, int currentTagIndex,int currentAttributeIndex)
         {
             return new AttributeElement(expressionParts, name, value, currentTagIndex,currentAttributeIndex);

@@ -24,6 +24,8 @@ namespace XPathItUp
 {
     internal class Base : IBase
     {
+        protected int tagIndex = 0;
+        protected int attributeIndex = 0;
         private List<string> expressionParts = new List<string>();
 
         public string ToXPathExpression()

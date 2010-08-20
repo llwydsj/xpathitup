@@ -24,7 +24,6 @@ namespace XPathItUp
 {
     internal class TextElement: Base, ITextElement
     {
-        private int tagIndex = 0;
         internal static ITextElement Create(string text, List<string> expressionParts, int currentTagIndex)
         {
             return new TextElement(text, expressionParts,currentTagIndex);

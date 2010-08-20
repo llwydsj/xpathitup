@@ -24,9 +24,6 @@ namespace XPathItUp
 {
     internal class AndElement : Base, IAndElement
     {
-        private int tagIndex = 0;
-        private int attributeIndex = 0;
-
         internal static IAndElement Create(List<string> expressionParts, int currentTagIndex, int currentAttributeIndex)
         {
             return new AndElement(expressionParts, currentTagIndex, currentAttributeIndex);

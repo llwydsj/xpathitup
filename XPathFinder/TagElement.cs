@@ -24,7 +24,6 @@ namespace XPathItUp
 {
     internal class TagElement : Base, ITagElement
     {
-        protected int tagIndex = 0;
         public static TagElement Create(string tag)
         {
             return new TagElement(tag);

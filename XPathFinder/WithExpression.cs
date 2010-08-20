@@ -24,7 +24,6 @@ namespace XPathItUp
 {
     internal class WithExpression : Base, IWith
     {
-        private int tagIndex = 0;
         private WithExpression(List<string> expressionParts,int currentTagIndex)
         {
             this.ExpressionParts = expressionParts;

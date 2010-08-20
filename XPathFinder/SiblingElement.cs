@@ -24,8 +24,6 @@ namespace XPathItUp
 {
     internal class SiblingElement:Base, ISibling
     {
-        private int tagIndex = 0;
-       
         public static SiblingElement Create(string tag, List<string> expressionParts, string siblingType,int tagIndex)
         {
             return new SiblingElement(tag,expressionParts,siblingType,tagIndex);
@@ -38,7 +36,7 @@ namespace XPathItUp
             this.tagIndex = this.ExpressionParts.Count - 1;
         }
 
-        public new ILimitedWith With
+        public ILimitedWith With
         {
             get { return WithExpression.Create(this.ExpressionParts, this.tagIndex); }
         }

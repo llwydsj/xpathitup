@@ -33,14 +33,17 @@ namespace XPathItUp
         {
             string exp = string.Format("[contains(.,'{0}')]", text);
             this.ExpressionParts = expressionParts;
+            this.tagIndex = this.ExpressionParts.Count - 1;
+            this.attributeIndex = this.tagIndex;
             expressionParts.Add(exp);
+            this.attributeIndex++; 
         }
 
         public IAndElement And
         {
             get
             {
-                return AndElement.Create(this.ExpressionParts, this.tagIndex, this.tagIndex + 2);
+                return AndElement.Create(this.ExpressionParts, this.tagIndex, this.attributeIndex + 1);
             }
         }
       

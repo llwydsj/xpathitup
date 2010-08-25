@@ -41,7 +41,7 @@ namespace XPathItUp
         {
             get
             {
-                return AndElement.Create(this.ExpressionParts, this.tagIndex, this.tagIndex + 2);
+                return AndElement.Create(this.ExpressionParts, this.tagIndex, this.attributeIndex + 1);
             }
         }
     }

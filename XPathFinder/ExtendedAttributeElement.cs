@@ -55,6 +55,7 @@ namespace XPathItUp
             {
                 this.ExpressionParts.Insert(this.attributeIndex,"[{0}@" + name + ",{1}]");
             }
+
         }
 
         public static IExtendedAttribute Create(List<string> expressionParts, string name, int currentAttributeIndex)

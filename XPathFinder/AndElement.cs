@@ -59,5 +59,17 @@ namespace XPathItUp
             return TagElement.Create(tag, this.ExpressionParts, -1);
         }
 
+        public ISibling PrecedingSibling(string tag)
+        {
+            this.ExpressionParts[this.ExpressionParts.Count - 1] = "]";
+            return SiblingElement.Create(tag, this.ExpressionParts, "preceding-sibling", this.ExpressionParts.Count);
+        }
+
+        public ISibling FollowingSibling(string tag)
+        {
+            this.ExpressionParts[this.ExpressionParts.Count - 1] = "]";
+            return SiblingElement.Create(tag, this.ExpressionParts, "following-sibling", this.ExpressionParts.Count);
+        }
+
     }
 }

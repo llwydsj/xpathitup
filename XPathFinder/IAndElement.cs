@@ -27,6 +27,7 @@ namespace XPathItUp
         IAttribute Attribute(string name, string value);
         IExtendedAttribute Attribute(string name);
         ITagElement Child(string tag);
-        //ITagElement Parent(string tag);
+        ISibling PrecedingSibling(string tag);
+        ISibling FollowingSibling(string tag);
     }
 }

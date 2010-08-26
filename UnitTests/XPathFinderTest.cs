@@ -123,6 +123,13 @@ namespace UnitTests
         }
 
         [Test]
+        public void Will_Create_Xpath_Query_With_Child_With_Contained_Text_And_Attribute()
+        {
+            string xpath = XPathFinder.Find.Tag("tr").With.Child("td").Containing("test").And.Attribute("class", "tt").ToXPathExpression();
+            Assert.AreEqual("//tr/td[contains(.,'test') and @class='tt']", xpath);
+        }
+
+        [Test]
         public void Will_Create_Xpath_Query_Based_On_Combination_Of_Text_And_Single_Attribute()
         {
             string xpath = XPathFinder.Find.Tag("a").With.Text("Home Page").And.Attribute("href", "http://www.test.com").ToXPathExpression();
@@ -176,6 +183,13 @@ namespace UnitTests
         {
             string xpath = XPathFinder.Find.Tag("a").With.Parent("div").With.Attribute("id").Containing("_txtUserName").ToXPathExpression();
             Assert.AreEqual("//div[contains(@id,'_txtUserName')]/a", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_To_Search_For_Tag_With_Partial_Attribute_Anded_With_Exact_Attribute()
+        {
+            string xpath = XPathFinder.Find.Tag("div").With.Attribute("id").Containing("_id").And.Attribute("class", "myClass").ToXPathExpression();
+            Assert.AreEqual("//div[contains(@id,'_id') and @class='myClass']", xpath);
         }
 
         [Test]
@@ -249,6 +263,83 @@ namespace UnitTests
         }
 
         [Test]
+        public void Will_Create_Xpath_Query_With_Contained_Text_And_Following_Sibling()
+        {
+            string xpath = XPathFinder.Find.Tag("tr").Containing("test").And.FollowingSibling("a").ToXPathExpression();
+            Assert.AreEqual("//tr[contains(.,'test')]/following-sibling::a", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_With_Contained_Text_And_Preceding_Sibling_Sibling()
+        {
+            string xpath = XPathFinder.Find.Tag("tr").Containing("test").And.PrecedingSibling("a").ToXPathExpression();
+            Assert.AreEqual("//tr[contains(.,'test')]/preceding-sibling::a", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_With_Exact_Text_And_Following_Sibling()
+        {
+            string xpath = XPathFinder.Find.Tag("td").With.Text("test").And.FollowingSibling("td").ToXPathExpression();
+            Assert.AreEqual("//td[text()='test']/following-sibling::td", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_With_Attribute_And_Following_Sibling()
+        {
+            string xpath = XPathFinder.Find.Tag("td").With.Attribute("class","myClass").And.FollowingSibling("td").ToXPathExpression();
+            Assert.AreEqual("//td[@class='myClass']/following-sibling::td", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_With_Partial_Attribute_And_Following_Sibling()
+        {
+            string xpath = XPathFinder.Find.Tag("td").With.Attribute("id").Containing("_txtBox").And.FollowingSibling("td").ToXPathExpression();
+            Assert.AreEqual("//td[contains(@id,'_txtBox')]/following-sibling::td", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_With_Child_With_Partial_Attribute_And_Preceding_Sibling()
+        {
+            string xpath = XPathFinder.Find.Tag("tr").With.Child("td").With.Attribute("class").Containing("tdClass").And.PrecedingSibling("td").ToXPathExpression();
+            Assert.AreEqual("//tr/td[contains(@class,'tdClass')]/preceding-sibling::td", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_With_Child_And_Partial_Attribute_And_Exact_Attribute()
+        {
+            string xpath = XPathFinder.Find.Tag("tr").With.Child("td").With.Attribute("class").Containing("tdClass").And.Attribute("id","_id").ToXPathExpression();
+            Assert.AreEqual("//tr/td[contains(@class,'tdClass') and @id='_id']", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_With_Child_And_Exact_Attribute_And_Partial_Attribute()
+        {
+            string xpath = XPathFinder.Find.Tag("tr").With.Child("td").With.Attribute("id", "_id").And.Attribute("class").Containing("tdClass").ToXPathExpression();
+            Assert.AreEqual("//tr/td[@id='_id' and contains(@class,'tdClass')]", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_With_Exact_Text_And_Following_Sibling_With_Attribute()
+        {
+            string xpath = XPathFinder.Find.Tag("td").With.Text("test").And.FollowingSibling("td").With.Attribute("attr", "val").ToXPathExpression();
+            Assert.AreEqual("//td[text()='test']/following-sibling::td[@attr='val']", xpath);
+        }
+
+        [Test]
+        public void Will_Create_XPath_Query_With_Child_With_Contained_Text_And_And_Following_Sibling()
+        {
+            string xpath = XPathFinder.Find.Tag("tr").With.Child("td").Containing("test").And.FollowingSibling("td").ToXPathExpression();
+            Assert.AreEqual("//tr/td[contains(.,'test')]/following-sibling::td", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_With_Contained_Text_And_Preceding_Sibling_Sibling_With_Attribute()
+        {
+            string xpath = XPathFinder.Find.Tag("tr").Containing("test").And.PrecedingSibling("a").With.Attribute("class","testClass").ToXPathExpression();
+            Assert.AreEqual("//tr[contains(.,'test')]/preceding-sibling::a[@class='testClass']", xpath);
+        }
+
+        [Test]
         public void Will_Create_Xpath_Query_With_Parent_With_Child_With_Sibling_With_Child_With_Attribute()
         {
             string xpath = XPathFinder.Find.Tag("div").With.Child("span").With.FollowingSibling("span").With.Child("p").With.Attribute("class","myPClass").ToXPathExpression();
@@ -281,6 +372,27 @@ namespace UnitTests
         {
             string xpath = XPathFinder.Find.Tag("td").With.Parent("tr1").With.FollowingSibling("tr2").ToXPathExpression();
             Assert.AreEqual("//tr1/following-sibling::tr2/td", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_For_Tag_With_Parent_With_Attribute_And_Following_Sibling()
+        {
+            string xpath = XPathFinder.Find.Tag("td").With.Parent("tr1").With.Attribute("class","myClass").And.FollowingSibling("tr2").ToXPathExpression();
+            Assert.AreEqual("//tr1[@class='myClass']/following-sibling::tr2/td", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_For_Tag_With_Parent_With_Attribute_And_Preceding_Sibling()
+        {
+            string xpath = XPathFinder.Find.Tag("td").With.Parent("tr1").With.Attribute("class", "myClass").And.PrecedingSibling("tr2").ToXPathExpression();
+            Assert.AreEqual("//tr1[@class='myClass']/preceding-sibling::tr2/td", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_For_Tag_With_Parent_With_Partial_Attribute_And_Preceding_Sibling()
+        {
+            string xpath = XPathFinder.Find.Tag("td").With.Parent("tr1").With.Attribute("id").Containing("_myId").And.PrecedingSibling("tr2").ToXPathExpression();
+            Assert.AreEqual("//tr1[contains(@id,'_myId')]/preceding-sibling::tr2/td", xpath);
         }
 
         [Test]

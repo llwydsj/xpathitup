@@ -61,15 +61,18 @@ namespace XPathItUp
 
         public ISibling PrecedingSibling(string tag)
         {
-            this.ExpressionParts[this.ExpressionParts.Count - 1] = "]";
-            return SiblingElement.Create(tag, this.ExpressionParts, "preceding-sibling", this.ExpressionParts.Count);
+            return CreateSibling(tag, "preceding-sibling");
         }
 
         public ISibling FollowingSibling(string tag)
         {
-            this.ExpressionParts[this.ExpressionParts.Count - 1] = "]";
-            return SiblingElement.Create(tag, this.ExpressionParts, "following-sibling", this.ExpressionParts.Count);
+            return CreateSibling(tag, "following-sibling");
         }
 
+        private ISibling CreateSibling(string tag, string type)
+        {
+            this.ExpressionParts[this.attributeIndex - 1] = "]";
+            return SiblingElement.Create(tag, this.ExpressionParts, type, this.attributeIndex);
+        }
     }
 }

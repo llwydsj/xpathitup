@@ -41,8 +41,9 @@ namespace XPathItUp
 {
     internal class ExtendedAttributeElement :Base, IExtendedAttribute
     {
-        private ExtendedAttributeElement(List<string> expressionParts, string name, int currentAttributeIndex)
+        private ExtendedAttributeElement(List<string> expressionParts, string name, int currentAttributeIndex,bool appliesToParent)
         {
+            this.AppliesToParent = appliesToParent;
             this.ExpressionParts = expressionParts;
 
             this.attributeIndex = currentAttributeIndex;
@@ -58,14 +59,14 @@ namespace XPathItUp
 
         }
 
-        public static IExtendedAttribute Create(List<string> expressionParts, string name, int currentAttributeIndex)
+        public static IExtendedAttribute Create(List<string> expressionParts, string name, int currentAttributeIndex, bool appliesToParent)
         {
-            return new ExtendedAttributeElement(expressionParts, name, currentAttributeIndex);
+            return new ExtendedAttributeElement(expressionParts, name, currentAttributeIndex,appliesToParent);
         }
 
         public IAttributeContains Containing(string value)
         {
-            return AttributeContainsElement.Create(this.ExpressionParts, value,this.attributeIndex);
+            return AttributeContainsElement.Create(this.ExpressionParts, value,this.attributeIndex,this.AppliesToParent);
         }
    
     }

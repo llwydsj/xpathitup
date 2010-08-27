@@ -24,13 +24,14 @@ namespace XPathItUp
 {
     internal class AndElement : Base, IAndElement
     {
-        internal static IAndElement Create(List<string> expressionParts, int currentTagIndex, int currentAttributeIndex)
+        internal static IAndElement Create(List<string> expressionParts, int currentTagIndex, int currentAttributeIndex,bool appliesToParent)
         {
-            return new AndElement(expressionParts, currentTagIndex, currentAttributeIndex);
+            return new AndElement(expressionParts, currentTagIndex, currentAttributeIndex,appliesToParent);
         }
 
-        private AndElement(List<string> expressionParts, int currentTagIndex,int currentAttributeIndex)
+        private AndElement(List<string> expressionParts, int currentTagIndex, int currentAttributeIndex, bool appliesToParent)
         {
+            this.AppliesToParent = appliesToParent;
             this.tagIndex = currentTagIndex;
             this.attributeIndex = currentAttributeIndex;
             this.ExpressionParts = expressionParts;
@@ -44,19 +45,19 @@ namespace XPathItUp
 
         public IAttribute Attribute(string name, string value)
         {
-            return AttributeElement.Create(this.ExpressionParts, name, value,this.tagIndex,this.attributeIndex);
+            return AttributeElement.Create(this.ExpressionParts, name, value,this.tagIndex,this.attributeIndex,this.AppliesToParent);
         }
 
         public IExtendedAttribute Attribute(string name)
         {
-            return ExtendedAttributeElement.Create(this.ExpressionParts, name, this.attributeIndex);
+            return ExtendedAttributeElement.Create(this.ExpressionParts, name, this.attributeIndex,this.AppliesToParent);
         }
 
         public ITagElement Child(string tag)
         {
             // replace " and " with closing bracket 
             this.ExpressionParts[this.ExpressionParts.Count - 1] = "]";
-            return TagElement.Create(tag, this.ExpressionParts, -1);
+            return TagElement.Create(tag, this.ExpressionParts, -1,false);
         }
 
         public ISibling PrecedingSibling(string tag)
@@ -71,8 +72,30 @@ namespace XPathItUp
 
         private ISibling CreateSibling(string tag, string type)
         {
-            this.ExpressionParts[this.attributeIndex - 1] = "]";
-            return SiblingElement.Create(tag, this.ExpressionParts, type, this.attributeIndex);
+            this.tagIndex = this.ExpressionParts.Count;
+
+            if (this.AppliesToParent)
+            {
+                string parent = this.ExpressionParts.Where(s => s[0] =='/').Reverse().Skip(1).First();
+                this.ExpressionParts.Add(string.Format("/ancestor::{0}{1}",parent.TrimStart('/'),"[1]"));
+
+                for (int i = this.ExpressionParts.Count - 1; i > 0; i--)
+                {
+                    if (this.ExpressionParts[i] == " and ")
+                    {
+                        this.ExpressionParts[i] = "]";
+                        break;
+                    }
+                }
+
+                this.tagIndex++;
+            }
+            else
+            {
+                this.ExpressionParts[this.ExpressionParts.Count - 1] = "]";
+            }
+            
+            return SiblingElement.Create(tag, this.ExpressionParts, type, this.tagIndex);
         }
     }
 }

@@ -24,13 +24,14 @@ namespace XPathItUp
 {
     internal class TextElement: Base, ITextElement
     {
-        internal static ITextElement Create(string text, List<string> expressionParts, int currentTagIndex)
+        internal static ITextElement Create(string text, List<string> expressionParts, int currentTagIndex,bool appliesToParent)
         {
-            return new TextElement(text, expressionParts,currentTagIndex);
+            return new TextElement(text, expressionParts,currentTagIndex,appliesToParent);
         }
 
-        private TextElement(string text, List<string> expressionParts,int currentTagIndex)
+        private TextElement(string text, List<string> expressionParts, int currentTagIndex, bool appliesToParent)
         {
+            this.AppliesToParent = appliesToParent;
             this.tagIndex = currentTagIndex;
             string exp = string.Format("[text()='{0}']", text);
             this.ExpressionParts = expressionParts;
@@ -42,7 +43,7 @@ namespace XPathItUp
         {
             get
             {
-                return AndElement.Create(this.ExpressionParts, this.tagIndex, this.tagIndex + 2);
+                return AndElement.Create(this.ExpressionParts, this.tagIndex, this.tagIndex + 2,this.AppliesToParent);
             }
         }
     }

@@ -24,13 +24,14 @@ namespace XPathItUp
 {
     internal class AttributeElement : Base, IAttribute
     {
-        public static IAttribute Create(List<string> expressionParts, string name, string value, int currentTagIndex,int currentAttributeIndex)
+        public static IAttribute Create(List<string> expressionParts, string name, string value, int currentTagIndex,int currentAttributeIndex,bool appliesToParent)
         {
-            return new AttributeElement(expressionParts, name, value, currentTagIndex,currentAttributeIndex);
+            return new AttributeElement(expressionParts, name, value, currentTagIndex,currentAttributeIndex,appliesToParent);
         }
 
-        private AttributeElement(List<string> expressionParts, string name, string value, int currentTagIndex, int currentAttributeIndex)
+        private AttributeElement(List<string> expressionParts, string name, string value, int currentTagIndex, int currentAttributeIndex,bool appliesToParent)
         {
+            this.AppliesToParent = appliesToParent;
             this.attributeIndex = currentAttributeIndex;
             this.tagIndex = currentTagIndex;
             this.ExpressionParts = expressionParts;
@@ -51,7 +52,7 @@ namespace XPathItUp
         {
             get
             {
-                return AndElement.Create(this.ExpressionParts,this.tagIndex,this.attributeIndex);
+                return AndElement.Create(this.ExpressionParts,this.tagIndex,this.attributeIndex,this.AppliesToParent);
             }
         }
 

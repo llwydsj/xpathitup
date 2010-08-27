@@ -24,40 +24,41 @@ namespace XPathItUp
 {
     internal class WithExpression : Base, IWith
     {
-        private WithExpression(List<string> expressionParts,int currentTagIndex)
+        private WithExpression(List<string> expressionParts, int currentTagIndex, bool appliesToParent)
         {
+            this.AppliesToParent = appliesToParent;
             this.ExpressionParts = expressionParts;
             this.tagIndex = currentTagIndex;
         }
 
-        internal static IWith Create(List<string> expressionParts, int currentTagIndex)
+        internal static IWith Create(List<string> expressionParts, int currentTagIndex,bool appliesToParent)
         {
-            return new WithExpression(expressionParts,currentTagIndex);
+            return new WithExpression(expressionParts,currentTagIndex,appliesToParent);
         }
 
         public ITagElement Parent(string tag)
         {
-            return TagElement.Create(tag, this.ExpressionParts,0);
+            return TagElement.Create(tag, this.ExpressionParts,0,true);
         }
 
         public ITagElement Child(string tag)
         {
-            return TagElement.Create(tag, this.ExpressionParts, this.tagIndex + 1);
+            return TagElement.Create(tag, this.ExpressionParts, this.tagIndex + 1,false);
         }
 
         public IAttribute Attribute(string name, string value)
         {
-            return AttributeElement.Create(this.ExpressionParts, name, value,this.tagIndex, this.tagIndex + 1);
+            return AttributeElement.Create(this.ExpressionParts, name, value,this.tagIndex, this.tagIndex + 1,this.AppliesToParent);
         }
 
         public IExtendedAttribute Attribute(string name)
         {
-            return ExtendedAttributeElement.Create(this.ExpressionParts, name, this.tagIndex + 1);
+            return ExtendedAttributeElement.Create(this.ExpressionParts, name, this.tagIndex + 1,this.AppliesToParent);
         }
 
         public ITextElement Text(string text)
         {
-            return TextElement.Create(text, this.ExpressionParts, this.tagIndex);
+            return TextElement.Create(text, this.ExpressionParts, this.tagIndex,this.AppliesToParent);
         }
 
         public ISibling PrecedingSibling(string tag)

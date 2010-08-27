@@ -31,7 +31,7 @@ namespace XPathItUp
                 throw new ArgumentNullException("tag");
             }
 
-            return TagElement.Create(tag);
+            return TagElement.Create(tag,false);
         }
     }
 }

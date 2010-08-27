@@ -26,5 +26,6 @@ namespace XPathItUp
     {
         IWith With { get; }
         IContent Containing(string text);
+        bool IsParent { get; set; }
     }
 }

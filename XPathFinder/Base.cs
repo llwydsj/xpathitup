@@ -24,6 +24,12 @@ namespace XPathItUp
 {
     internal class Base : IBase
     {
+        protected bool AppliesToParent
+        {
+            get;
+            set;
+        }
+
         protected int tagIndex = 0;
         protected int attributeIndex = 0;
         private List<string> expressionParts = new List<string>();

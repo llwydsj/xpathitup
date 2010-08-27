@@ -374,26 +374,64 @@ namespace UnitTests
             Assert.AreEqual("//tr1/following-sibling::tr2/td", xpath);
         }
 
-        //These queries are not supported (produces incorrect results)
-        //[Test]
-        //public void Will_Create_Xpath_Query_For_Tag_With_Parent_With_Attribute_And_Following_Sibling()
-        //{
-        //    string xpath = XPathFinder.Find.Tag("td").With.Parent("tr1").With.Attribute("class", "myClass").And.FollowingSibling("tr2").ToXPathExpression();
-        //    Assert.AreEqual("//tr1[@class='myClass']/following-sibling::tr2/td", xpath);
-        //}
+        [Test]
+        public void Will_Create_Xpath_Query_For_Tag_With_Parent_With_Attribute_And_Following_Sibling()
+        {
+            string xpath = XPathFinder.Find.Tag("data").With.Parent("pet").With.Attribute("name", "tigger").And.FollowingSibling("pet").ToXPathExpression();
+            Assert.AreEqual("//pet[@name='tigger']/data/ancestor::pet[1]/following-sibling::pet", xpath);
 
-        //[Test]
-        //public void Will_Create_Xpath_Query_For_Tag_With_Parent_With_Attribute_And_Preceding_Sibling()
-        //{
-        //    string xpath = XPathFinder.Find.Tag("td").With.Parent("tr1").With.Attribute("class", "myClass").And.PrecedingSibling("tr2").ToXPathExpression();
-        //    Assert.AreEqual("//tr1[@class='myClass']/preceding-sibling::tr2/td", xpath);
-        //}
+            xpath = XPathFinder.Find.Tag("data").With.Parent("pet").With.Attribute("name", "tigger").And.FollowingSibling("pet").With.Attribute("t","val").ToXPathExpression();
+
+            Assert.AreEqual("//pet[@name='tigger']/data/ancestor::pet[1]/following-sibling::pet[@t='val']", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_For_Tag_With_Parent_With_Exact_Text_And_Following_Sibling()
+        {
+            string xpath = XPathFinder.Find.Tag("data").With.Parent("pet").With.Text("Some text").And.FollowingSibling("pet").ToXPathExpression();
+            Assert.AreEqual("//pet[text()='Some text']/data/ancestor::pet[1]/following-sibling::pet", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_For_Tag_With_Parent_With_Contained_Text_And_Following_Sibling()
+        {
+            string xpath = XPathFinder.Find.Tag("data").With.Parent("pet").Containing("contained text").And.FollowingSibling("pet").ToXPathExpression();
+            Assert.AreEqual("//pet[contains(.,'contained text')]/data/ancestor::pet[1]/following-sibling::pet", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_For_Tag_With_Parent_With_Contained_Text()
+        {
+            string xpath = XPathFinder.Find.Tag("data").With.Parent("pet").Containing("contained text").ToXPathExpression();
+            Assert.AreEqual("//pet[contains(.,'contained text')]/data",xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_For_Tag_With_Parent_With_Contained_Text_And_Exact_Attribute()
+        {
+            string xpath = XPathFinder.Find.Tag("data").With.Parent("pet").Containing("contained text").And.Attribute("attr","val").ToXPathExpression();
+            Assert.AreEqual("//pet[contains(.,'contained text') and @attr='val']/data", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_For_Tag_With_Parent_With_Contained_Text_And_Partial_Attribute()
+        {
+            string xpath = XPathFinder.Find.Tag("data").With.Parent("pet").Containing("contained text").And.Attribute("attr").Containing("_val").ToXPathExpression();
+            Assert.AreEqual("//pet[contains(.,'contained text') and contains(@attr,'_val')]/data", xpath);
+        }
+        
+        [Test]
+        public void Will_Create_Xpath_Query_For_Tag_With_Parent_With_Attribute_And_Preceding_Sibling()
+        {
+            string xpath = XPathFinder.Find.Tag("data").With.Parent("pet").With.Attribute("name", "tigger").And.PrecedingSibling("pet").ToXPathExpression();
+            Assert.AreEqual("//pet[@name='tigger']/data/ancestor::pet[1]/preceding-sibling::pet", xpath);
+        }
 
         [Test]
         public void Will_Create_Xpath_Query_For_Tag_With_Parent_With_Partial_Attribute_And_Preceding_Sibling()
         {
-            string xpath = XPathFinder.Find.Tag("td").With.Parent("tr1").With.Attribute("id").Containing("_myId").And.PrecedingSibling("tr2").ToXPathExpression();
-            Assert.AreEqual("//tr1[contains(@id,'_myId')]/preceding-sibling::tr2/td", xpath);
+            string xpath = XPathFinder.Find.Tag("data").With.Parent("pet").With.Attribute("name").Containing("tigger").And.PrecedingSibling("pet").ToXPathExpression();
+            Assert.AreEqual("//pet[contains(@name,'tigger')]/data/ancestor::pet[1]/preceding-sibling::pet", xpath);
         }
 
         [Test]

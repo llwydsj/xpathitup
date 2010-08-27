@@ -38,7 +38,7 @@ namespace XPathItUp
 
         public ILimitedWith With
         {
-            get { return WithExpression.Create(this.ExpressionParts, this.tagIndex); }
+            get { return WithExpression.Create(this.ExpressionParts, this.tagIndex,false); }
         }
     }
 }

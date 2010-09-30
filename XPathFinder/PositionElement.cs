@@ -32,7 +32,6 @@ namespace XPathItUp
         private PositionElement(List<string> expressionParts, int currentTagIndex, bool appliesToParent, int position)
         {
             this.AppliesToParent = appliesToParent;
-            //this.attributeIndex = currentAttributeIndex;
             this.tagIndex = currentTagIndex;
             this.ExpressionParts = expressionParts;
 
@@ -48,16 +47,7 @@ namespace XPathItUp
                 this.ExpressionParts.Insert(this.tagIndex + 1, exp);
             }
 
-            //if (this.ExpressionParts[this.attributeIndex - 1] == " and ")
-            //{
-            //    this.ExpressionParts.Insert(this.attributeIndex, string.Format("@{0}='{1}']", name, value));
-            //}
-            //else
-            //{
-            //    this.ExpressionParts.Insert(this.attributeIndex, string.Format("[@{0}='{1}']", name, value));
-            //}
-
-            //this.attributeIndex++;
+          
         }
     }
 }

@@ -53,6 +53,11 @@ namespace XPathItUp
             return ExtendedAttributeElement.Create(this.ExpressionParts, name, this.attributeIndex,this.AppliesToParent);
         }
 
+        public IPositionElement Position(int position)
+        {
+            return PositionElement.Create(this.ExpressionParts, this.tagIndex, this.AppliesToParent, position);
+        }
+
         public ITagElement Child(string tag)
         {
             // replace " and " with closing bracket 

@@ -22,11 +22,7 @@ using System.Text;
 
 namespace XPathItUp
 {
-    public interface IWith : ILimitedWith
+    public interface IPositionElement : IBase
     {
-        ITagElement Parent(string tag);
-
-        ISibling PrecedingSibling(string tag);
-        ISibling FollowingSibling(string tag);
     }
 }

@@ -29,5 +29,6 @@ namespace XPathItUp
         ITagElement Child(string tag);
         ISibling PrecedingSibling(string tag);
         ISibling FollowingSibling(string tag);
+        IPositionElement Position(int position);
     }
 }

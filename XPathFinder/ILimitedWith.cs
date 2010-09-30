@@ -28,5 +28,6 @@ namespace XPathItUp
         IExtendedAttribute Attribute(string name);
         ITextElement Text(string text);
         ITagElement Child(string tag);
+        IPositionElement Position(int position);
     }
 }

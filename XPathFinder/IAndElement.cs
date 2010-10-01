@@ -22,7 +22,7 @@ using System.Text;
 
 namespace XPathItUp
 {
-    public interface IAndElement
+    public interface IAndElement : ILimitedAnd
     {
         IAttribute Attribute(string name, string value);
         IExtendedAttribute Attribute(string name);
@@ -30,5 +30,10 @@ namespace XPathItUp
         ISibling PrecedingSibling(string tag);
         ISibling FollowingSibling(string tag);
         IPositionElement Position(int position);
+    }
+
+    public interface ILimitedAnd
+    {
+        IDescendantElement Descendant(string tag);
     }
 }

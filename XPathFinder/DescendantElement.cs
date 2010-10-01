@@ -22,8 +22,23 @@ using System.Text;
 
 namespace XPathItUp
 {
-    public interface IPositionElement : IBase
+    internal class DescendantElement : Base, IDescendantElement
     {
-        ILimitedAnd And { get; }
+        public static IDescendantElement Create(List<string> expressionParts,string tag)
+        {
+            return new DescendantElement(expressionParts,tag);
+        }
+
+        private DescendantElement(List<string> expressionParts, string tag)
+        {
+            this.ExpressionParts = expressionParts;
+            this.ExpressionParts.Add("//" + tag);
+            tagIndex = this.ExpressionParts.Count - 1;
+        }
+
+        public ILimitedWith With
+        {
+            get { return WithExpression.Create(this.ExpressionParts, this.tagIndex, false); }
+        }
     }
 }

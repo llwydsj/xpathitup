@@ -44,9 +44,11 @@
     <Compile Include="AttributeContainsElement.cs" />
     <Compile Include="AttributeElement.cs" />
     <Compile Include="Base.cs" />
+    <Compile Include="DescendantElement.cs" />
     <Compile Include="ExtendedAttributeElement.cs" />
     <Compile Include="Finder.cs" />
     <Compile Include="Content.cs" />
+    <Compile Include="IDescendantElement.cs" />
     <Compile Include="IPositionElement.cs" />
     <Compile Include="PositionElement.cs" />
     <Compile Include="TagElement.cs" />

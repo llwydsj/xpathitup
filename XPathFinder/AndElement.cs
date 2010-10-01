@@ -53,9 +53,27 @@ namespace XPathItUp
             return ExtendedAttributeElement.Create(this.ExpressionParts, name, this.attributeIndex,this.AppliesToParent);
         }
 
+        public IDescendantElement Descendant(string tag)
+        {
+            this.tagIndex = this.ExpressionParts.Count;
+
+            if (this.AppliesToParent)
+            {
+                CloseAndTerm();
+
+                this.tagIndex++;
+            }
+            else
+            {
+                this.ExpressionParts[this.ExpressionParts.Count - 1] = "]";
+            }
+
+            return DescendantElement.Create(this.ExpressionParts, tag);
+        }
+
         public IPositionElement Position(int position)
         {
-            return PositionElement.Create(this.ExpressionParts, this.tagIndex, this.AppliesToParent, position);
+            return PositionElement.Create(this.ExpressionParts, this.tagIndex,this.attributeIndex, this.AppliesToParent, position);
         }
 
         public ITagElement Child(string tag)
@@ -84,14 +102,7 @@ namespace XPathItUp
                 string parent = this.ExpressionParts.Where(s => s[0] =='/').Reverse().Skip(1).First();
                 this.ExpressionParts.Add(string.Format("/ancestor::{0}{1}",parent.TrimStart('/'),"[1]"));
 
-                for (int i = this.ExpressionParts.Count - 1; i > 0; i--)
-                {
-                    if (this.ExpressionParts[i] == " and ")
-                    {
-                        this.ExpressionParts[i] = "]";
-                        break;
-                    }
-                }
+                CloseAndTerm();
 
                 this.tagIndex++;
             }
@@ -101,6 +112,18 @@ namespace XPathItUp
             }
             
             return SiblingElement.Create(tag, this.ExpressionParts, type, this.tagIndex);
+        }
+
+        private void CloseAndTerm()
+        {
+            for (int i = this.ExpressionParts.Count - 1; i > 0; i--)
+            {
+                if (this.ExpressionParts[i] == " and ")
+                {
+                    this.ExpressionParts[i] = "]";
+                    break;
+                }
+            }
         }
     }
 }

@@ -61,9 +61,14 @@ namespace XPathItUp
             return TextElement.Create(text, this.ExpressionParts, this.tagIndex,this.AppliesToParent);
         }
 
+        public IDescendantElement Descendant(string tag)
+        {
+            return XPathItUp.DescendantElement.Create(this.ExpressionParts, tag);
+        }
+
         public IPositionElement Position(int position)
         {
-            return PositionElement.Create(this.ExpressionParts, this.tagIndex, this.AppliesToParent, position);
+            return PositionElement.Create(this.ExpressionParts, this.tagIndex,this.tagIndex + 1, this.AppliesToParent, position);
         }
 
         public ISibling PrecedingSibling(string tag)

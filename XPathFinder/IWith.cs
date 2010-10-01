@@ -28,5 +28,7 @@ namespace XPathItUp
 
         ISibling PrecedingSibling(string tag);
         ISibling FollowingSibling(string tag);
+
+        IDescendantElement Descendant(string tag);
     }
 }

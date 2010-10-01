@@ -24,15 +24,16 @@ namespace XPathItUp
 {
     internal class PositionElement : Base, IPositionElement
     {
-        public static IPositionElement Create(List<string> expressionParts, int currentTagIndex,bool appliesToParent,int position)
+        public static IPositionElement Create(List<string> expressionParts, int currentTagIndex,int currentAttributeIndex,bool appliesToParent,int position)
         {
-            return new PositionElement(expressionParts,currentTagIndex,appliesToParent,position);
+            return new PositionElement(expressionParts,currentTagIndex,currentAttributeIndex,appliesToParent,position);
         }
 
-        private PositionElement(List<string> expressionParts, int currentTagIndex, bool appliesToParent, int position)
+        private PositionElement(List<string> expressionParts, int currentTagIndex, int currentAttributeIndex, bool appliesToParent, int position)
         {
             this.AppliesToParent = appliesToParent;
             this.tagIndex = currentTagIndex;
+            this.attributeIndex = currentAttributeIndex;
             this.ExpressionParts = expressionParts;
 
             string positionStr = string.Format("position()={0}",position);
@@ -48,6 +49,15 @@ namespace XPathItUp
             }
 
           
+        }
+
+        public ILimitedAnd And
+        {
+            get
+            {
+                return AndElement.Create(this.ExpressionParts, this.tagIndex, this.attributeIndex, this.AppliesToParent);
+            }
+
         }
     }
 }

@@ -22,8 +22,8 @@ using System.Text;
 
 namespace XPathItUp
 {
-    public interface IPositionElement : IBase
+    public interface IDescendantElement : IBase
     {
-        ILimitedAnd And { get; }
+        ILimitedWith With { get; }
     }
 }

@@ -73,6 +73,13 @@ namespace UnitTests
         }
 
         [Test]
+        public void Will_Create_Xpath_Query_With_Position_And_Child_Anded()
+        {
+            string xpath = XPathFinder.Find.Tag("div").With.Position(1).And.Child("span").ToXPathExpression();
+            Assert.AreEqual("//div[position()=1]/span", xpath);
+        }
+
+        [Test]
         public void Will_Create_Xpath_Query_With_Position_And_Text_On_Following_Sibling()
         {
             string xpath = XPathFinder.Find.Tag("div").With.FollowingSibling("span").With.Text("myText").And.Position(3).ToXPathExpression();

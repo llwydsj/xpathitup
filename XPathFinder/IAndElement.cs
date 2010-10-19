@@ -26,7 +26,6 @@ namespace XPathItUp
     {
         IAttribute Attribute(string name, string value);
         IExtendedAttribute Attribute(string name);
-        ITagElement Child(string tag);
         ISibling PrecedingSibling(string tag);
         ISibling FollowingSibling(string tag);
         IPositionElement Position(int position);
@@ -35,5 +34,6 @@ namespace XPathItUp
     public interface ILimitedAnd
     {
         IDescendantElement Descendant(string tag);
+        ITagElement Child(string tag);
     }
 }

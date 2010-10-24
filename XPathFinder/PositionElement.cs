@@ -45,7 +45,8 @@ namespace XPathItUp
             else
             {
                 string exp = string.Format("[{0}]",positionStr);
-                this.ExpressionParts.Insert(this.tagIndex + 1, exp);
+                this.ExpressionParts.Insert(this.attributeIndex, exp);
+                this.attributeIndex++;
             }
 
           

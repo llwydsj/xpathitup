@@ -72,13 +72,11 @@ namespace UnitTests
             Assert.AreEqual("//div/following-sibling::span[position()=3]", xpath);
         }
 
-        //TODO: Include this functionality
         [Test]
-        [Ignore]
         public void Will_Create_Xpath_Query_With_Position_And_Child_Anded()
         {
-            //string xpath = XPathFinder.Find.Tag("div").With.Position(1).And.Child("span").ToXPathExpression();
-            //Assert.AreEqual("//div[position()=1]/span", xpath);
+            string xpath = XPathFinder.Find.Tag("div").With.Position(1).And.Child("span").ToXPathExpression();
+            Assert.AreEqual("//div[position()=1]/span", xpath);
         }
 
         [Test]

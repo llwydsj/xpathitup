@@ -29,12 +29,12 @@ namespace XPathItUp
         ISibling PrecedingSibling(string tag);
         ISibling FollowingSibling(string tag);
         IPositionElement Position(int position);
-        ITagElement Child(string tag);
+        
     }
 
     public interface ILimitedAnd
     {
         IDescendantElement Descendant(string tag);
-       // 
+        ITagElement Child(string tag);
     }
 }

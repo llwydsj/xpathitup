@@ -38,6 +38,7 @@ namespace XPathItUp
 
             string positionStr = string.Format("position()={0}",position);
 
+            //Adding position element to an exisiting [
             if (this.ExpressionParts.Count-1 > this.tagIndex && this.ExpressionParts[this.tagIndex + 1].StartsWith("["))
             {
                 this.ExpressionParts[this.ExpressionParts.Count - 1] += string.Format("{0}]", positionStr);

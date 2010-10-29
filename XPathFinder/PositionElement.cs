@@ -39,7 +39,7 @@ namespace XPathItUp
             string positionStr = string.Format("position()={0}",position);
 
             //Adding position element to an exisiting [
-            if (this.ExpressionParts.Count-1 > this.tagIndex && this.ExpressionParts[this.tagIndex + 1].StartsWith("["))
+            if(this.ExpressionParts[this.attributeIndex - 1] == " and ")
             {
                 this.ExpressionParts[this.ExpressionParts.Count - 1] += string.Format("{0}]", positionStr);
             }
@@ -49,8 +49,6 @@ namespace XPathItUp
                 this.ExpressionParts.Insert(this.attributeIndex, exp);
                 this.attributeIndex++;
             }
-
-          
         }
 
         public ILimitedAnd And

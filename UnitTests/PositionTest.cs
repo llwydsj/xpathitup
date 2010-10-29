@@ -94,6 +94,33 @@ namespace UnitTests
         }
 
         [Test]
+        public void Will_Create_Xpath_Query_With_Partial_Attribute_And_Position_On_Child1()
+        {
+            string xpath = XPathFinder.Find.Tag("div").With.Child("span").With.Attribute("id").Containing("myId").And.Position(2).ToXPathExpression();
+            Assert.AreEqual("//div/span[contains(@id,'myId') and position()=2]", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_With_Partial_Attribute_And_Position_On_Child2()
+        {
+            string xpath = XPathFinder.Find.Tag("td").With.Child("span").With.FollowingSibling("td").With
+                    .Child("div").
+                    With.Child("div").
+                    With.Child("div").
+                    With.Child("select").With.Attribute("id").Containing("_myId").And.Position(1).ToXPathExpression();
+
+            Assert.AreEqual("//td/span/following-sibling::td/div/div/div/select[contains(@id,'_myId') and position()=1]", xpath);
+
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_With_Attribute_And_Position_On_Child()
+        {
+            string xpath = XPathFinder.Find.Tag("div").With.Child("span").With.Attribute("id","myId").And.Position(2).ToXPathExpression();
+            Assert.AreEqual("//div/span[@id='myId' and position()=2]", xpath);
+        }
+
+        [Test]
         public void Will_Create_Xpath_Query_With_Position_On_Parent()
         {
             string xpath = XPathFinder.Find.Tag("span").With.Parent("div").With.Position(2).ToXPathExpression();

@@ -73,12 +73,38 @@ namespace XPathItUp
 
         public ISibling PrecedingSibling(string tag)
         {
-            return SiblingElement.Create(tag, this.ExpressionParts, "preceding-sibling",this.tagIndex + 1);
+            return CreateSibling(tag, "preceding-sibling");
         }
 
         public ISibling FollowingSibling(string tag)
         {
-            return SiblingElement.Create(tag, this.ExpressionParts, "following-sibling",this.tagIndex + 1);
+            return CreateSibling(tag, "following-sibling");
+        }
+
+        private ISibling CreateSibling(string tag, string siblingType)
+        {
+            this.tagIndex = this.ExpressionParts.Count;
+
+            if (this.AppliesToParent)
+            {
+                string parent = this.ExpressionParts[0];
+                
+                //find correct parent if there are more than one ancestor of same type
+                int ancestorIndex = 1;
+                for (int i = this.tagIndex-1; i > 0; i--)
+                {
+                    if (this.ExpressionParts[i] == parent)
+                    {
+                        //must increment to point to the next parent 
+                        ancestorIndex++;
+                    }
+                }
+
+                this.ExpressionParts.Add(string.Format("/ancestor::{0}[{1}]", parent.TrimStart('/'), ancestorIndex));
+                this.tagIndex++;
+            }
+
+            return SiblingElement.Create(tag, this.ExpressionParts, siblingType, this.tagIndex);
         }
     }
 }

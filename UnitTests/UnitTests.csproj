@@ -50,6 +50,7 @@
     <Compile Include="DescendantTest.cs" />
     <Compile Include="PositionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SiblingTest.cs" />
     <Compile Include="XPathFinderTest.cs" />
   </ItemGroup>
   <ItemGroup>

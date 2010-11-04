@@ -83,6 +83,12 @@ namespace XPathItUp
             return TagElement.Create(tag, this.ExpressionParts, -1,false);
         }
 
+        public ITagElement Parent(string tag)
+        {
+            this.ExpressionParts[this.ExpressionParts.Count - 1] = "]";
+            return TagElement.Create(tag, this.ExpressionParts, this.tagIndex, false);
+        }
+
         public ISibling PrecedingSibling(string tag)
         {
             return CreateSibling(tag, "preceding-sibling");

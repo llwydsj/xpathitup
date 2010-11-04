@@ -46,7 +46,6 @@ namespace UnitTests
         {
             string xpath = XPathFinder.Find.Tag("div").With.Text("someText").And.Parent("span").ToXPathExpression();
             Assert.AreEqual("//span/div[text()='someText']", xpath);
-
         }
 
         [Test]

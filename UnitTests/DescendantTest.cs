@@ -27,6 +27,19 @@ namespace UnitTests
     [TestFixture]
     public class DescendantTest
     {
+        [Test]
+        public void Will_Create_Xpath_Query_With_Descendant_Containing_Text()
+        {
+            string xpath = XPathFinder.Find.Tag("div").With.Descendant("span").Containing("subString").ToXPathExpression();
+            Assert.AreEqual("//div//span[contains(.,'subString')]", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_With_Descendant_Containing_Text_Anded_With_Attribute()
+        {
+            string xpath = XPathFinder.Find.Tag("div").With.Descendant("span").Containing("subString").And.Attribute("id","myId").ToXPathExpression();
+            Assert.AreEqual("//div//span[contains(.,'subString') and @id='myId']", xpath);
+        }
 
         [Test]
         public void Will_Create_Xpath_Query_With_Descendant()

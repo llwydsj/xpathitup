@@ -25,5 +25,6 @@ namespace XPathItUp
     public interface IDescendantElement : IBase
     {
         ILimitedWith With { get; }
+        IContent Containing(string text);
     }
 }

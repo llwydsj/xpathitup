@@ -40,5 +40,10 @@ namespace XPathItUp
         {
             get { return WithExpression.Create(this.ExpressionParts, this.tagIndex, false); }
         }
+
+        public IContent Containing(string text)
+        {
+            return Content.Create(text, this.ExpressionParts, false);
+        }
     }
 }

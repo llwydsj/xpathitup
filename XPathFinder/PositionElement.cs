@@ -41,14 +41,15 @@ namespace XPathItUp
             //Adding position element to an exisiting [
             if(this.ExpressionParts[this.attributeIndex - 1] == " and ")
             {
-                this.ExpressionParts[this.ExpressionParts.Count - 1] += string.Format("{0}]", positionStr);
+                this.ExpressionParts.Insert(this.attributeIndex,string.Format("{0}]", positionStr));
             }
             else
             {
                 string exp = string.Format("[{0}]",positionStr);
                 this.ExpressionParts.Insert(this.attributeIndex, exp);
-                this.attributeIndex++;
             }
+
+            this.attributeIndex++;
         }
 
         public ILimitedAnd And

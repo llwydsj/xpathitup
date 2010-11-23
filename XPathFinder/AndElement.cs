@@ -85,7 +85,7 @@ namespace XPathItUp
 
         public ITagElement Parent(string tag)
         {
-            this.ExpressionParts[this.ExpressionParts.Count - 1] = "]";
+            this.ExpressionParts[this.attributeIndex - 1] = "]";
             return TagElement.Create(tag, this.ExpressionParts, this.tagIndex, false);
         }
 

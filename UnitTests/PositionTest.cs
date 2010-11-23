@@ -28,6 +28,24 @@ namespace UnitTests
     public class PositionTest
     {
         [Test]
+        public void Will_Create_Xpath_With_Position_With_Parent_Anded1()
+        {
+            string xpath = XPathFinder.Find.Tag("a").With.Parent("li").With.Attribute("class").Containing("secondNavItem").And.Position(2).
+                And.Parent("ul").With.Parent("div").With.Attribute("class").Containing("questionBankNav").ToXPathExpression();
+            Assert.AreEqual("//div[contains(@class,'questionBankNav')]/ul/li[contains(@class,'secondNavItem') and position()=2]/a", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_With_Position_With_Parent_Anded2()
+        {
+            string xpath = XPathFinder.Find.Tag("a").With.Position(2).And.Parent("li").With.Attribute("class").Containing(
+                "secondNavItem").And.Parent("ul").With.Parent("div").With.Attribute("class").
+                Containing("questionBankNav").ToXPathExpression();
+
+            Assert.AreEqual("//div[contains(@class,'questionBankNav')]/ul/li[contains(@class,'secondNavItem')]/a[position()=2]", xpath);
+        }
+
+        [Test]
         public void Will_Create_Xpath_Query_With_Position()
         {
             string xpath = XPathFinder.Find.Tag("div").With.Position(3).ToXPathExpression();

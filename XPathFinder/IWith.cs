@@ -30,5 +30,7 @@ namespace XPathItUp
         ISibling FollowingSibling(string tag);
 
         IDescendantElement Descendant(string tag);
+
+        IAncestorElement Ancestor(string tag);
     }
 }

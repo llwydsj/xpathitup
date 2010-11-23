@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AncestorElement.cs" />
     <Compile Include="AndElement.cs" />
     <Compile Include="AttributeContainsElement.cs" />
     <Compile Include="AttributeElement.cs" />
@@ -48,6 +49,7 @@
     <Compile Include="ExtendedAttributeElement.cs" />
     <Compile Include="Finder.cs" />
     <Compile Include="Content.cs" />
+    <Compile Include="IAncestorElement.cs" />
     <Compile Include="IDescendantElement.cs" />
     <Compile Include="IPositionElement.cs" />
     <Compile Include="PositionElement.cs" />

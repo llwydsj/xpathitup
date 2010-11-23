@@ -47,6 +47,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AncestorTest.cs" />
     <Compile Include="DescendantTest.cs" />
     <Compile Include="ParentTest.cs" />
     <Compile Include="PositionTest.cs" />

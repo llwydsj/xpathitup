@@ -66,6 +66,11 @@ namespace XPathItUp
             return XPathItUp.DescendantElement.Create(this.ExpressionParts, tag);
         }
 
+        public IAncestorElement Ancestor(string tag)
+        {
+            return XPathItUp.AncestorElement.Create(this.ExpressionParts, tag);
+        }
+
         public IPositionElement Position(int position)
         {
             return PositionElement.Create(this.ExpressionParts, this.tagIndex,this.tagIndex + 1, this.AppliesToParent, position);

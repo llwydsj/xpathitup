@@ -28,6 +28,14 @@ namespace UnitTests
     public class SiblingTest
     {
         [Test]
+        public void Will_Create_Xpath_Query_For_Parent_With_Sibling3()
+        {
+            string xpath = XPathFinder.Find.Tag("span").With.FollowingSibling("div").With.Text("tt").And.Parent("div").With.Parent("div").With.FollowingSibling("span").ToXPathExpression();
+
+            Assert.AreEqual("//div/div/span/following-sibling::div[text()='tt']/ancestor::div[2]/following-sibling::span",xpath);
+        }
+
+        [Test]
         public void Will_Create_Xpath_Query_For_Parent_With_Sibling1()
         {
             string xpath =

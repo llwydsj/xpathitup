@@ -94,7 +94,7 @@ namespace XPathItUp
             {
                 string parent = this.ExpressionParts[0];
                 
-                //find correct parent if there are more than one ancestor of same type
+                //find correct parent if there is more than one ancestor of same type
                 int ancestorIndex = 1;
                 for (int i = this.tagIndex-1; i > 0; i--)
                 {

@@ -86,7 +86,7 @@ namespace XPathItUp
         public ITagElement Parent(string tag)
         {
             this.ExpressionParts[this.attributeIndex - 1] = "]";
-            return TagElement.Create(tag, this.ExpressionParts, this.tagIndex, false);
+            return TagElement.Create(tag, this.ExpressionParts, this.tagIndex, true);
         }
 
         public ISibling PrecedingSibling(string tag)

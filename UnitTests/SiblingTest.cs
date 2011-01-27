@@ -28,7 +28,19 @@ namespace UnitTests
     public class SiblingTest
     {
         [Test]
-        public void Will_Create_Xpath_Query_For_Parent_With_Sibling()
+        public void Will_Create_Xpath_Query_For_Parent_With_Sibling1()
+        {
+            string xpath =
+                XPathFinder.Find.Tag("span").With.Attribute("class", "incomplete").And.FollowingSibling("span").With.Text("test").
+                    And.Parent("div").With.FollowingSibling("div").With.Attribute("class", "checklistResponse").And.
+                    Descendant("input").With.Attribute("value", "true").ToXPathExpression();
+
+         
+            Assert.AreEqual("//div/span[@class='incomplete']/following-sibling::span[text()='test']/ancestor::div[1]/following-sibling::div[@class='checklistResponse']//input[@value='true']", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_For_Parent_With_Sibling2()
         {
             string xpath = XPathFinder.Find.Tag("span").With.Text("Immediate Notifications").And.Parent("div").With.
                 FollowingSibling("ul").With.Child("li").With.Descendant("span").With.Text("Applicant Signs Up").

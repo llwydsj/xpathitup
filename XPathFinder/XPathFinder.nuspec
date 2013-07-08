@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>xpathitup</id>
+    <version>1.0</version>
+    <title>xpathitup</title>
+    <authors>thelgevold, rhoffman</authors>
+    <owners>thelgevold, rhoffman</owners>
+    <licenseUrl>http://www.gnu.org/licenses/gpl-2.0.html</licenseUrl>
+    <projectUrl>https://code.google.com/p/xpathitup/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>An easy way to create xpath expressions for verifying the presence of elements in a document.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>xpath fluent xpathitup selenium webdriver</tags>
+  </metadata>
+</package>

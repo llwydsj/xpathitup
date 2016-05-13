@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using NUnit.Framework;
 using XPathItUp;
 
@@ -111,13 +107,12 @@ namespace UnitTests
                     With.Child("select").With.Attribute("id").Containing("_myId").And.Position(1).ToXPathExpression();
 
             Assert.AreEqual("//td/span/following-sibling::td/div/div/div/select[contains(@id,'_myId') and position()=1]", xpath);
-
         }
 
         [Test]
         public void Will_Create_Xpath_Query_With_Attribute_And_Position_On_Child()
         {
-            string xpath = XPathFinder.Find.Tag("div").With.Child("span").With.Attribute("id","myId").And.Position(2).ToXPathExpression();
+            string xpath = XPathFinder.Find.Tag("div").With.Child("span").With.Attribute("id", "myId").And.Position(2).ToXPathExpression();
             Assert.AreEqual("//div/span[@id='myId' and position()=2]", xpath);
         }
 
@@ -134,9 +129,8 @@ namespace UnitTests
             string xpath = XPathFinder.Find.Tag("span").Containing("myText").And.Position(3).ToXPathExpression();
             Assert.AreEqual("//span[contains(.,'myText') and position()=3]", xpath);
 
-            xpath = XPathFinder.Find.Tag("span").Containing("myText").And.Attribute("class","test").And.Position(3).ToXPathExpression();
+            xpath = XPathFinder.Find.Tag("span").Containing("myText").And.Attribute("class", "test").And.Position(3).ToXPathExpression();
             Assert.AreEqual("//span[contains(.,'myText') and @class='test' and position()=3]", xpath);
         }
-
     }
 }

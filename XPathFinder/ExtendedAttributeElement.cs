@@ -17,11 +17,11 @@ namespace XPathItUp
 
             if (this.ExpressionParts[this.attributeIndex - 1] == " and ")
             {
-                this.ExpressionParts.Insert(this.attributeIndex,"{0}@" + name + ",{1}]");
+                this.ExpressionParts.Insert(this.attributeIndex,"{0}@" + name + "{1}]");
             }
             else
             {
-                this.ExpressionParts.Insert(this.attributeIndex,"[{0}@" + name + ",{1}]");
+                this.ExpressionParts.Insert(this.attributeIndex,"[{0}@" + name + "{1}]");
             }
 
         }
@@ -35,6 +35,10 @@ namespace XPathItUp
         {
             return AttributeContainsElement.Create(this.ExpressionParts, value,this.attributeIndex,this.AppliesToParent);
         }
-   
+
+        public IAttributeContains Including(string value)
+        {
+            return AttributeIncludesElement.Create(this.ExpressionParts, value,this.attributeIndex,this.AppliesToParent);
+        }
     }
 }

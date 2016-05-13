@@ -9,5 +9,7 @@ namespace XPathItUp
     public interface IExtendedAttribute 
     {
         IAttributeContains Containing(string value);
+
+        IAttributeContains Including(string value);
     }
 }

@@ -44,6 +44,7 @@
     <Compile Include="AndElement.cs" />
     <Compile Include="AttributeContainsElement.cs" />
     <Compile Include="AttributeElement.cs" />
+    <Compile Include="AttributeIncludesElement.cs" />
     <Compile Include="Base.cs" />
     <Compile Include="DescendantElement.cs" />
     <Compile Include="ExtendedAttributeElement.cs" />

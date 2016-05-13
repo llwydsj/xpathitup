@@ -1,8 +1,4 @@
 using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-
 using XPathItUp;
 using NUnit.Framework;
 
@@ -11,7 +7,13 @@ namespace UnitTests
     [TestFixture]
     public class XPathFinderTest
     {
-        
+        [Test]
+        public void Will_Create_Xpath_Query_Where_Attribute_Includes_Entire_Value()
+        {
+            string xpath = XPathFinder.Find.Tag("div").With.Attribute("class").Including("entire-class-name").And.Child("p").With.Attribute("id", "p_id").ToXPathExpression();
+            Assert.AreEqual("//div[contains(concat(' ', normalize-space(@class), ' '), ' entire-class-name ')]/p[@id='p_id']", xpath);
+        }
+
         [Test]
         public void Will_Create_Xpath_Query_Where_Both_Parent_And_Child_Has_Exact_Attributes()
         {
@@ -32,7 +34,6 @@ namespace UnitTests
             string xpath = XPathFinder.Find.Tag("div").With.Attribute("id", "divId").And.Child("span").With.Attribute("id", "spanId").And.Attribute("class").Containing("my").ToXPathExpression();
             Assert.AreEqual("//div[@id='divId']/span[@id='spanId' and contains(@class,'my')]", xpath);
         }
-
 
         [Test]
         public void Will_Create_Xpath_Query_Where_Partial_Attribute_Is_Anded_With_Exact_Attribute()
@@ -553,18 +554,16 @@ namespace UnitTests
             Assert.AreEqual("//div[@class='someclass']", xpath);
         }
 
-        [ExpectedException(typeof(ArgumentNullException))]
         [Test]
         public void Find_Will_Throw_ArgumentNullException_If_Tag_Is_Null_Test()
         {
-            XPathFinder.Find.Tag(null);
+            Assert.Throws<ArgumentNullException>(()=>XPathFinder.Find.Tag(null));
         }
 
-        [ExpectedException(typeof(ArgumentNullException))]
         [Test]
         public void Find_Will_Throw_ArgumentNullException_If_Tag_Is_String_Empty_Test()
         {
-            XPathFinder.Find.Tag(string.Empty);
+            Assert.Throws<ArgumentNullException>(()=>XPathFinder.Find.Tag(string.Empty));
         }
     }
 }

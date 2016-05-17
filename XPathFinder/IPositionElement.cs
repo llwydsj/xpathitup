@@ -7,6 +7,8 @@ namespace XPathItUp
 {
     public interface IPositionElement : IBase
     {
-        ILimitedAnd And { get; }
+        ILimitedLogic And { get; }
+
+        ILimitedLogic Or { get; }
     }
 }

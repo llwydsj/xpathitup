@@ -8,10 +8,39 @@ namespace UnitTests
     public class XPathFinderTest
     {
         [Test]
+        public void Will_Create_Xpath_Query_Where_Partial_Attribute_Is_Ored_With_Exact_Attribute()
+        {
+            string xpath = XPathFinder.Find.Tag("div").With.Attribute("class").Containing("my").Or.Attribute("id", "myId").ToXPathExpression();
+            Assert.AreEqual("//div[contains(@class,'my') or @id='myId']", xpath);
+
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_Where_Partial_Attributes_Are_Ored()
+        {
+            string xpath = XPathFinder.Find.Tag("div").With.Attribute("class").Containing("myClass").Or.Attribute("id").Containing("_myID").ToXPathExpression();
+            Assert.AreEqual("//div[contains(@class,'myClass') or contains(@id,'_myID')]", xpath);
+        }
+
+        [Test]
         public void Will_Create_Xpath_Query_Where_Attribute_Includes_Entire_Value()
         {
             string xpath = XPathFinder.Find.Tag("div").With.Attribute("class").Including("entire-class-name").And.Child("p").With.Attribute("id", "p_id").ToXPathExpression();
             Assert.AreEqual("//div[contains(concat(' ', normalize-space(@class), ' '), ' entire-class-name ')]/p[@id='p_id']", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_Where_Attribute_Includes_Entire_Value_Is_Ored_With_Attribute_Containing()
+        {
+            string xpath = XPathFinder.Find.Tag("div").With.Attribute("class").Including("entire-class-name").Or.Attribute("class").Containing("-icon").ToXPathExpression();
+            Assert.AreEqual("//div[contains(concat(' ', normalize-space(@class), ' '), ' entire-class-name ') or contains(@class,'-icon')]", xpath);
+        }
+
+        [Test]
+        public void Will_Create_Xpath_Query_Where_Attribute_Includes_Entire_Value_Is_Ored_With_Exact_Attribute()
+        {
+            string xpath = XPathFinder.Find.Tag("div").With.Attribute("class").Including("entire-class-name").Or.Attribute("id","myId").ToXPathExpression();
+            Assert.AreEqual("//div[contains(concat(' ', normalize-space(@class), ' '), ' entire-class-name ') or @id='myId']", xpath);
         }
 
         [Test]

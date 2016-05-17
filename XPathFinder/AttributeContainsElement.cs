@@ -1,18 +1,15 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace XPathItUp
 {
     internal class AttributeContainsElement : Base, IAttributeContains
     {
-        internal static IAttributeContains Create(List<string> expressionParts, string value, int currentAttributeIndex,bool appliesToParent)
+        internal static IAttributeContains Create(List<string> expressionParts, string value, int currentAttributeIndex, bool appliesToParent)
         {
-            return new AttributeContainsElement(expressionParts, value, currentAttributeIndex,appliesToParent);
+            return new AttributeContainsElement(expressionParts, value, currentAttributeIndex, appliesToParent);
         }
 
-        private AttributeContainsElement(List<string> expressionParts, string value, int currentAttributeIndex,bool appliesToParent)
+        private AttributeContainsElement(List<string> expressionParts, string value, int currentAttributeIndex, bool appliesToParent)
         {
             this.AppliesToParent = appliesToParent;
             this.ExpressionParts = expressionParts;
@@ -21,11 +18,19 @@ namespace XPathItUp
             this.ExpressionParts[this.attributeIndex] = string.Format(attributeString, "contains(", ",'" + value + "')");
         }
 
-        public IAndElement And
+        public ILogicElement And
         {
             get
             {
-                return AndElement.Create(this.ExpressionParts, this.tagIndex, this.attributeIndex + 1,this.AppliesToParent);
+                return AndElement.Create(this.ExpressionParts, this.tagIndex, this.attributeIndex + 1, this.AppliesToParent);
+            }
+        }
+
+        public ILogicElement Or
+        {
+            get
+            {
+                return OrElement.Create(this.ExpressionParts, this.tagIndex, this.attributeIndex + 1, this.AppliesToParent);
             }
         }
     }

@@ -52,11 +52,13 @@
     <Compile Include="Content.cs" />
     <Compile Include="IAncestorElement.cs" />
     <Compile Include="IDescendantElement.cs" />
+    <Compile Include="ILogicElement.cs" />
     <Compile Include="IPositionElement.cs" />
+    <Compile Include="LogicElementBase.cs" />
+    <Compile Include="OrElement.cs" />
     <Compile Include="PositionElement.cs" />
     <Compile Include="TagElement.cs" />
     <Compile Include="IAttribute.cs" />
-    <Compile Include="IAndElement.cs" />
     <Compile Include="IAttributeContains.cs" />
     <Compile Include="IBase.cs" />
     <Compile Include="IContent.cs" />

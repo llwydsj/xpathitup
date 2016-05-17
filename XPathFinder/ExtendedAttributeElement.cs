@@ -15,7 +15,7 @@ namespace XPathItUp
 
             this.attributeIndex = currentAttributeIndex;
 
-            if (this.ExpressionParts[this.attributeIndex - 1] == " and ")
+            if (this.ExpressionParts[this.attributeIndex - 1] == " and " || this.ExpressionParts[this.attributeIndex - 1] == " or ")
             {
                 this.ExpressionParts.Insert(this.attributeIndex,"{0}@" + name + "{1}]");
             }

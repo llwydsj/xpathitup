@@ -19,7 +19,7 @@ namespace XPathItUp
             string positionStr = string.Format("position()={0}", position);
 
             //Adding position element to an exisiting [
-            if (this.ExpressionParts[this.attributeIndex - 1] == " and ")
+            if (this.ExpressionParts[this.attributeIndex - 1] == " and " || this.ExpressionParts[this.attributeIndex - 1] == " or ")
             {
                 this.ExpressionParts.Insert(this.attributeIndex, string.Format("{0}]", positionStr));
             }

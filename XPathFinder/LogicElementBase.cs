@@ -85,7 +85,7 @@ namespace XPathItUp
         {
             for (int i = this.ExpressionParts.Count - 1; i > 0; i--)
             {
-                if (this.ExpressionParts[i] == " and ")
+                if (this.ExpressionParts[i] == " and " || this.ExpressionParts[i] == " or ")
                 {
                     this.ExpressionParts[i] = "]";
                     break;

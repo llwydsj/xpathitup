@@ -1,15 +1,12 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace XPathItUp
 {
-    internal class TextElement: Base, ITextElement
+    internal class TextElement : Base, ITextElement
     {
-        internal static ITextElement Create(string text, List<string> expressionParts, int currentTagIndex,bool appliesToParent)
+        internal static ITextElement Create(string text, List<string> expressionParts, int currentTagIndex, bool appliesToParent)
         {
-            return new TextElement(text, expressionParts,currentTagIndex,appliesToParent);
+            return new TextElement(text, expressionParts, currentTagIndex, appliesToParent);
         }
 
         private TextElement(string text, List<string> expressionParts, int currentTagIndex, bool appliesToParent)
@@ -18,15 +15,23 @@ namespace XPathItUp
             this.tagIndex = currentTagIndex;
             string exp = string.Format("[text()='{0}']", text);
             this.ExpressionParts = expressionParts;
-            
-            this.ExpressionParts.Insert(this.tagIndex + 1,exp);
+
+            this.ExpressionParts.Insert(this.tagIndex + 1, exp);
         }
 
-        public IAndElement And
+        public ILogicElement And
         {
             get
             {
-                return AndElement.Create(this.ExpressionParts, this.tagIndex, this.tagIndex + 2,this.AppliesToParent);
+                return AndElement.Create(this.ExpressionParts, this.tagIndex, this.tagIndex + 2, this.AppliesToParent);
+            }
+        }
+
+        public ILogicElement Or
+        {
+            get
+            {
+                return OrElement.Create(this.ExpressionParts, this.tagIndex, this.tagIndex + 2, this.AppliesToParent);
             }
         }
     }

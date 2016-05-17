@@ -7,6 +7,8 @@ namespace XPathItUp
 {
     public interface IAttributeContains : IBase
     {
-        IAndElement And { get; }
+        ILogicElement And { get; }
+
+        ILogicElement Or { get; }
     }
 }

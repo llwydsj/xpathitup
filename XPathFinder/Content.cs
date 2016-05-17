@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace XPathItUp
 {
     internal class Content : Base, IContent
     {
-        internal static IContent Create(string text, List<string> expressionParts,bool appliesToParent)
+        internal static IContent Create(string text, List<string> expressionParts, bool appliesToParent)
         {
-            return new Content(text,expressionParts,appliesToParent);
+            return new Content(text, expressionParts, appliesToParent);
         }
 
-        private Content(string text, List<string> expressionParts,bool appliesToParent)
+        private Content(string text, List<string> expressionParts, bool appliesToParent)
         {
             this.AppliesToParent = appliesToParent;
             string exp = string.Format("[contains(.,'{0}')]", text);
@@ -23,23 +20,28 @@ namespace XPathItUp
             if (this.AppliesToParent == false)
             {
                 this.ExpressionParts.Add(exp);
-                this.attributeIndex++; 
+                this.attributeIndex++;
             }
             else
             {
                 this.ExpressionParts.Insert(this.tagIndex, exp);
             }
-
-            
         }
 
-        public IAndElement And
+        public ILogicElement And
         {
             get
             {
-                return AndElement.Create(this.ExpressionParts, this.tagIndex, this.attributeIndex + 1,this.AppliesToParent);
+                return AndElement.Create(this.ExpressionParts, this.tagIndex, this.attributeIndex + 1, this.AppliesToParent);
             }
         }
-      
+
+        public ILogicElement Or
+        {
+            get
+            {
+                return OrElement.Create(this.ExpressionParts, this.tagIndex, this.attributeIndex + 1, this.AppliesToParent);
+            }
+        }
     }
 }

@@ -1,25 +1,22 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace XPathItUp
 {
     internal class AttributeElement : Base, IAttribute
     {
-        public static IAttribute Create(List<string> expressionParts, string name, string value, int currentTagIndex,int currentAttributeIndex,bool appliesToParent)
+        public static IAttribute Create(List<string> expressionParts, string name, string value, int currentTagIndex, int currentAttributeIndex, bool appliesToParent)
         {
-            return new AttributeElement(expressionParts, name, value, currentTagIndex,currentAttributeIndex,appliesToParent);
+            return new AttributeElement(expressionParts, name, value, currentTagIndex, currentAttributeIndex, appliesToParent);
         }
 
-        private AttributeElement(List<string> expressionParts, string name, string value, int currentTagIndex, int currentAttributeIndex,bool appliesToParent)
+        private AttributeElement(List<string> expressionParts, string name, string value, int currentTagIndex, int currentAttributeIndex, bool appliesToParent)
         {
             this.AppliesToParent = appliesToParent;
             this.attributeIndex = currentAttributeIndex;
             this.tagIndex = currentTagIndex;
             this.ExpressionParts = expressionParts;
-            
-            if (this.ExpressionParts[this.attributeIndex - 1] == " and ")
+
+            if (this.ExpressionParts[this.attributeIndex - 1] == " and " || this.ExpressionParts[this.attributeIndex - 1] == " or ")
             {
                 this.ExpressionParts.Insert(this.attributeIndex, string.Format("@{0}='{1}']", name, value));
             }
@@ -31,13 +28,20 @@ namespace XPathItUp
             this.attributeIndex++;
         }
 
-        public IAndElement And
+        public ILogicElement And
         {
             get
             {
-                return AndElement.Create(this.ExpressionParts,this.tagIndex,this.attributeIndex,this.AppliesToParent);
+                return AndElement.Create(this.ExpressionParts, this.tagIndex, this.attributeIndex, this.AppliesToParent);
             }
         }
 
+        public ILogicElement Or
+        {
+            get
+            {
+                return OrElement.Create(this.ExpressionParts, this.tagIndex, this.attributeIndex, this.AppliesToParent);
+            }
+        }
     }
 }

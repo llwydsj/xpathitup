@@ -18,7 +18,7 @@ namespace XPathItUp
             this.ExpressionParts = expressionParts;
             this.attributeIndex = currentAttributeIndex;
             string attributeString = this.ExpressionParts[this.attributeIndex];
-            this.ExpressionParts[this.attributeIndex] = string.Format(attributeString, "contains(", "'" + value + "')");
+            this.ExpressionParts[this.attributeIndex] = string.Format(attributeString, "contains(", ",'" + value + "')");
         }
 
         public IAndElement And
